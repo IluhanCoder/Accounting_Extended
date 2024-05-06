@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import User, { UserResponse } from "../user/user-types";
 
 export interface modificationRequestResponse {
