@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { submitButtonStyle } from "../styles/button-syles";
 import { inputStyle, linkStyle } from "../styles/form-styles";
-import { LoginCredentials } from "../../../server/src/auth/auth-types";
+import { LoginCredentials } from "./registration-types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import authService from "./auth-service";

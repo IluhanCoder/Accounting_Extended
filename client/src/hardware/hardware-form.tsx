@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { grayButtonStyle, redButtonSyle, submitButtonStyle } from "../styles/button-syles";
 import { inputStyle, linkStyle, smallInputStyle, smallSelectStyle } from "../styles/form-styles";
-import { LoginCredentials } from "../../../server/src/auth/auth-types";
+import { LoginCredentials } from "../auth/registration-types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import hardwareService from "./hardware-service";
