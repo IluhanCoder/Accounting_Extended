@@ -16,3 +16,8 @@ type RegCredantials = {
 }
 
 export default RegCredantials
+
+export type LoginCredentials = {
+    nickname: string,
+    password: string
+}

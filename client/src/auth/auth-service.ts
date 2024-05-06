@@ -1,4 +1,4 @@
-import { LoginCredentials } from './../../../server/src/auth/auth-types';
+import { LoginCredentials } from "./registration-types";
 import { AxiosError } from "axios";
 import $api, { dropHeader, setHeader } from "../axios-setup";
 import userStore from '../user/user-store';
