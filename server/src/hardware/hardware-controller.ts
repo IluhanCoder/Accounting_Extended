@@ -18,7 +18,7 @@ export default new class HardwareController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -35,7 +35,7 @@ export default new class HardwareController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -52,7 +52,7 @@ export default new class HardwareController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -69,7 +69,7 @@ export default new class HardwareController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -86,7 +86,7 @@ export default new class HardwareController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -109,7 +109,7 @@ export default new class HardwareController {
                 res.status(error.status ?? 500).json({
                     status: "internal server error"
                 })
-                throw error;
+                console.log(error);
             }
         }
     }
@@ -131,7 +131,7 @@ export default new class HardwareController {
                 res.status(error.status ?? 500).json({
                     status: "internal server error"
                 })
-                throw error;
+                console.log(error);
             }
         }
     }
@@ -152,7 +152,7 @@ export default new class HardwareController {
                 res.status(error.status ?? 500).json({
                     status: "internal server error"
                 })
-                throw error;
+                console.log(error);
             }
         }
     }
@@ -170,7 +170,7 @@ export default new class HardwareController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -186,7 +186,7 @@ export default new class HardwareController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 }

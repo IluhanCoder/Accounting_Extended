@@ -20,7 +20,7 @@ export default new class AuthController {
                 res.status(error.status ?? 500).json({
                     status: "internal server error"
                 })
-                throw error;
+                console.log(error);
             }
         }
     }
@@ -42,7 +42,7 @@ export default new class AuthController {
                 res.status(error.status ?? 500).json({
                     status: "internal server error"
                 })
-                throw error;
+                console.log(error);
             }
         }
     }

@@ -17,7 +17,7 @@ export default new class UserController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }   
 
@@ -33,7 +33,7 @@ export default new class UserController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -50,7 +50,7 @@ export default new class UserController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -67,7 +67,7 @@ export default new class UserController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 }

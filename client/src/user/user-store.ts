@@ -9,11 +9,23 @@ export default new class UserStore {
     makeAutoObservable(this);
   }
 
-  setUser(newUser: User) {
+  setUser(newUser: User): void {
     this.user = newUser;
   }
 
-  dropUser() {
+  dropUser(): void {
     this.user = null;
+  }
+
+  isAdmin(): boolean {
+    return this.user?.role === "admin";
+  }
+
+  isMain(): boolean {
+    return this.user?.role === "main";
+  }
+
+  isJustUser(): boolean {
+    return this.user?.role === "user"
   }
 }

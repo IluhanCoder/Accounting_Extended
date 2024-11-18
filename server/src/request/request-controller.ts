@@ -15,7 +15,7 @@ export default new class RequestController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -31,7 +31,7 @@ export default new class RequestController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -47,7 +47,7 @@ export default new class RequestController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -64,7 +64,7 @@ export default new class RequestController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -80,7 +80,7 @@ export default new class RequestController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -97,7 +97,7 @@ export default new class RequestController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -113,7 +113,7 @@ export default new class RequestController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -130,7 +130,7 @@ export default new class RequestController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -147,7 +147,7 @@ export default new class RequestController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -163,7 +163,7 @@ export default new class RequestController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 
@@ -179,7 +179,7 @@ export default new class RequestController {
                 status: "fail",
                 message: "internal server error"
             }).status(500)
-            throw error;
+            console.log(error);
         }
     }
 }

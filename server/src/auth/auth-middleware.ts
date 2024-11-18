@@ -23,7 +23,7 @@ export default async function authMiddleware (req: AuthenticatedRequest, res: Re
                 res.status(error.status ?? 500).json({
                     status: "internal server error"
                 })
-                throw error;
+                console.log(error);
             }
         }
 }

@@ -15,7 +15,7 @@ export default new class AuthService {
             const user = await UserModel.create({...credentials, password: hashedPassword});
             return user;
         } catch (error) {
-            throw error;
+            console.log(error);
         }
     }
 
@@ -28,7 +28,7 @@ export default new class AuthService {
             const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
             return token;
         } catch (error) {
-            throw error;
+            console.log(error);
         }
     }   
 
@@ -43,7 +43,7 @@ export default new class AuthService {
             const user: User = await UserModel.findById(userId);
             return user;
         } catch (error) {
-            throw error;
+            console.log(error);
         }
     }
 }
