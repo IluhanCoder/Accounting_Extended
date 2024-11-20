@@ -5,7 +5,7 @@ import { LoginCredentials } from "../auth/registration-types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import hardwareService from "./hardware-service";
-import Hardware, { Category, ConvertHardwareFormToHardware, ConvertHardwareResToHardwareForm, HardwareFormData, HardwareResponse, IpHardware, Service } from "./hardware-types";
+import Hardware, { ConvertHardwareFormToHardware, ConvertHardwareResToHardwareForm, HardwareFormData, HardwareResponse, IpHardware, Service } from "./hardware-types";
 import Departament, { DepartamentResponse } from "../departament/departament-types";
 import User, { UserResponse } from "../user/user-types";
 import { HardwareFormError } from "./hardware-error";

@@ -3,11 +3,11 @@ import Departament, { DepartamentResponse } from "../departament/departament-typ
 import User, { UserResponse } from "../user/user-types";
 import { HardwareFormError } from "./hardware-error";
 
-export enum Category {
-    per = "per",
-    comp = "comp",
-    net = "net"
-}
+export const Categories = [
+    {value: "per", label: "переферійне обладнання"},
+    {value: "comp", label: "компʼютерне обладнання"},
+    {value: "net", label: "мережеве обладнання"}
+]
 
 export default interface Hardware {
     category: string,
