@@ -2,6 +2,7 @@ import userStore from "./user/user-store";
 import { Link } from "react-router-dom";
 import { ImSearch, ImUsers, ImNewTab, ImOffice, ImPlus, ImDisplay, ImHammer, ImRocket, ImCart, ImDownload, ImFileText2, ImStatsBars } from "react-icons/im";
 import authService from "./auth/auth-service";
+import { observer } from "mobx-react";
 
 const Menu = () => {
     const userIsMain: boolean = userStore.isMain();
@@ -110,4 +111,4 @@ const Menu = () => {
         </div>
 }
 
-export default Menu;
+export default observer(Menu);

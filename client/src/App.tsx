@@ -27,6 +27,8 @@ import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import SelledHardwarePage from './hardware/selled-hardware-page';
 import Menu from './menu';
+import FormCloserProvider from './forms/form-closer-provider';
+import formStore from './forms/form-store';
 registerLocale('ua', uk)
 
 function App() {
@@ -38,11 +40,12 @@ function App() {
     verifyUser();
   }, [])
 
-  const currentUser = userStore.user;
+  const {form} = formStore;
 
   return (
     <div className='h-full flex bg-blue-100'>
       <BrowserRouter>
+        <FormCloserProvider>
         <ToastContainer/>
           <div className='flex w-full'>
             <Menu/>
@@ -67,6 +70,8 @@ function App() {
               </Routes>
             </div>
           </div>
+          {form && <div>{form}</div>}
+          </FormCloserProvider>
         </BrowserRouter>
     </div>
   );

@@ -1,5 +1,5 @@
 import stringHelper from "../misc/string-helper";
-import SelectionModal from "../selection/selection-modal";
+import SelectionPlate from "../selection/selection-plate";
 import departamentService from "./departament-service";
 import Departament from "./departament-types";
 
@@ -16,7 +16,7 @@ function DepartamnetPicker({onChange}: LocalParams) {
 
     const departamentFilterField = (departament: Departament, value: string) => stringHelper.unstrictCompare(departament.name, value);
 
-    return <SelectionModal<Departament> filterField={departamentFilterField} label="відділення" name="departament" displayField={departamentsDisplayField} fetchData={getDepartaments} onChange={onChange}/>
+    return <SelectionPlate<Departament> closeAfterSubmit searchPanelLabel="назва відділу" filterField={departamentFilterField} label="відділення" name="departament" displayField={departamentsDisplayField} fetchData={getDepartaments} onChange={onChange}/>
 }
 
 export default DepartamnetPicker

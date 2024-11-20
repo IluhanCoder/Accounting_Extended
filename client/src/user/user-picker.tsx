@@ -1,5 +1,5 @@
 import stringHelper from "../misc/string-helper";
-import SelectionModal from "../selection/selection-modal";
+import SelectionPlate from "../selection/selection-plate";
 import userService from "./user-service";
 import userStore from "./user-store";
 import User from "./user-types";
@@ -27,7 +27,7 @@ function UserPicker({onChange, label, closeAfterSubmit, role, self}: LocalParams
         return isSelf && matchesRole && namesMatches;
     }
 
-    return <SelectionModal<User> filterField={userFilterField} closeAfterSubmit name="user" displayField={usersDisplayField} fetchData={getUsers} label={label ?? "користувач"} onChange={onChange}/>
+    return <SelectionPlate<User> searchPanelLabel="нікнейм, імʼя, прізвище, або по-батькові" filterField={userFilterField} closeAfterSubmit name="user" displayField={usersDisplayField} fetchData={getUsers} label={label ?? "вибір користувача"} onChange={onChange}/>
 }
 
 export default UserPicker

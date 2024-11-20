@@ -7,8 +7,8 @@ interface LocalParams {
 function OptionsMapper ({options}: LocalParams) {
     return (
         <>
-            {options.map((category: { value: string; label: string }) => (
-                <option key={category.value} value={category.value}>
+            {options.map((category: { value: string; label: string }, index: number) => (
+                <option key={index} value={category.value}>
                     {category.label}
                 </option>
             ))}

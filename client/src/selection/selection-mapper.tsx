@@ -1,5 +1,8 @@
 import { ChangeEvent, useState } from "react";
 import { lightButtonStyle } from "../styles/button-syles";
+import formStore from "../forms/form-store";
+import { inputStyle } from "../styles/form-styles";
+import SearchInput from "../misc/search-input";
 
 interface LocalParams<T> {
     data: T[],
@@ -7,11 +10,11 @@ interface LocalParams<T> {
     displayField: (item: T) => string,
     closeAfterSubmit?: boolean,
     onChange: (item: T) => void,
-    onClose: () => void,
-    buttonLabel?: string
+    buttonLabel?: string,
+    searchPanelLabel?: string
 }
 
-function SelectionMapper<T>({data, filterField, displayField, closeAfterSubmit, onChange, onClose, buttonLabel}: LocalParams<T>) {
+function SelectionMapper<T>({data, filterField, displayField, closeAfterSubmit, onChange, buttonLabel, searchPanelLabel}: LocalParams<T>) {
     const [filterInput, setFilterInput] = useState<string | null>(null);
 
     const filteredItems = filterInput ? data.filter((entry: T) => filterField(entry, filterInput)) : data
@@ -21,16 +24,16 @@ function SelectionMapper<T>({data, filterField, displayField, closeAfterSubmit, 
         setFilterInput(newValue.length > 0 ? newValue : null);
     };
 
-    return <div>
+    return <div className="flex flex-col gap-4 p-4">
             <div>
-                <input type="text" value={filterInput ?? ""} onChange={handleInputChange}/>
+                <SearchInput placeholder={searchPanelLabel} onChange={handleInputChange}/>
             </div>
             <div className="flex gap-2 overflow-auto">
                 {filteredItems.map((entry: T, index: number) => 
                     <div key={index} className="bg-gray-50 rounded border py-2 px-5">
                         <div className="p-2 text-center">{displayField(entry)}</div>
                         <div className="flex justify-center">
-                            <button type="button" className={lightButtonStyle} onClick={() => {onChange(entry); onClose()}}>{buttonLabel ?? "обрати"}</button>
+                            <button type="button" className={lightButtonStyle} onClick={() => {onChange(entry); if(closeAfterSubmit) formStore.dropForm()}}>{buttonLabel ?? "обрати"}</button>
                         </div>
                     </div>
                 )}

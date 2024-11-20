@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Picker from "./selector";
+import SelectFormOpener from "./selector-form-opener";
 import LoadingScreen from "../misc/loading-screen";
 import { grayButtonStyle } from "../styles/button-syles";
 
@@ -10,10 +10,11 @@ interface PickerParams<T> {
   label?: string,
   closeAfterSubmit?: boolean,
   displayField: (item: T) => string,
-  filterField: (item: T, value: string) => boolean
+  filterField: (item: T, value: string) => boolean,
+  searchPanelLabel?: string
 }
 
-function SelectionModal<T>({ fetchData, filterField, onChange, name, label, closeAfterSubmit, displayField }: PickerParams<T>) {
+function SelectionPlate<T>({ fetchData, filterField, onChange, name, label, closeAfterSubmit, displayField, searchPanelLabel }: PickerParams<T>) {
   const [items, setItems] = useState<T[]>();
   const [pickedItem, setPickedItem] = useState<T | null>(null);
 
@@ -39,7 +40,7 @@ function SelectionModal<T>({ fetchData, filterField, onChange, name, label, clos
 
   return (
     <div>
-      <Picker<T> filterField={filterField} label={label} displayField={displayField} closeAfterSubmit={closeAfterSubmit} data={items} onChange={handlePush} />
+      <SelectFormOpener<T> searchPanelLabel={searchPanelLabel} filterField={filterField} label={label} displayField={displayField} closeAfterSubmit={closeAfterSubmit} data={items} onChange={handlePush} />
       <div>{pickedItem ? displayField(pickedItem) : null}</div>
       {pickedItem && (
         <div>
@@ -52,4 +53,4 @@ function SelectionModal<T>({ fetchData, filterField, onChange, name, label, clos
   );
 }
 
-export default SelectionModal;
+export default SelectionPlate;

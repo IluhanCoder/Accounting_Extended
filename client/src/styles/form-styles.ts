@@ -6,7 +6,7 @@ export const inputStyle = "border-2 border-gray-200 bg-gray-50 rounded-sm px-2 p
 
 export const linkStyle = "text-blue-600 visited:text-blue-800"
 
-export const selectStyle = "bg-gray-100 text-xs font-semibold rounded px-4 py-1"
+export const selectStyle = "bg-gray-100 text-xs font-semibold rounded px-4 py-2"
 
 export const smallInputStyle = "border border-gray-200 rounded-sm px-1 focus:border-blue-100"
 
