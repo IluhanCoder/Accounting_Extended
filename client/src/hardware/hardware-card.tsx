@@ -1,39 +1,42 @@
-import { useNavigate } from "react-router-dom";
-import { HardwareResponse } from "./hardware-types";
+import { Link } from "react-router-dom";
 import { submitButtonStyle } from "../styles/button-syles";
-import { ReactNode } from "react";
-import { inputStyle } from "../styles/form-styles";
+import { HardwareResponse } from "./hardware-types";
 
 interface LocalParams {
-    hardwareData: HardwareResponse,
-    bottomDiv: ReactNode
+    hardwareData: HardwareResponse
 }
 
-function HardwareCard({hardwareData, bottomDiv}: LocalParams) {
-    const navigate = useNavigate();
+function HardwareCard({ hardwareData }: LocalParams) {
+    console.log(hardwareData);
 
-    const handleMoreClick = () => {
-        navigate(`/edit-hardware/${hardwareData._id}`)
-    }
-
-    return <div className="flex flex-col gap-2 border rounded p-4">
-        <div className="flex gap-2">
-            <label className="font-bold text-gray-600 text-xs mt-1">модель:</label>
-            <label>{hardwareData.model}</label>
+    return <div className="flex flex-col min-w-72 justify-between shadow shadow-xl shadow-blue-200 bg-white rounded py-4 px-7 gap-1">
+        <div className="flex flex-col gap-1 justify-center h-full pb-4">
+            <div className="flex justify-center text-xl py-1">
+                {hardwareData.model}
+            </div>
+            <div className="text-xs flex gap-2">
+                <label>Серійний номер:</label>
+                <label>{hardwareData.serial}</label>
+            </div>
+            {hardwareData.user && <div className="text-xs flex gap-2">
+                <label>Користувач:</label>
+                <label>{hardwareData.user.nickname}</label>
+            </div>}
+            <div className="text-xs flex gap-2">
+                <label>Адміністратор:</label>
+                <label>{hardwareData.admin.nickname}</label>
+            </div>
+            {hardwareData.ip.length > 0 && <div className="text-xs mt-2">
+                <div>ip адреси:</div>
+                <div className="h-6 overflow-auto text-gray-400">
+                    {hardwareData.ip.map((ip: string) => <div>
+                        {ip}
+                    </div>)}
+                </div>
+            </div>}
         </div>
-        <div className="flex gap-2">
-            <label className="font-bold text-gray-600 text-xs mt-1">серійний номер:</label>
-            <label>{hardwareData.model}</label>
-        </div>
-        <div className="flex gap-2">
-            <label className="font-bold text-gray-600 text-xs mt-1">рік випуску:</label>
-            <label>{hardwareData.year}</label>
-        </div>
-        <div >
-            <button type="button" className={submitButtonStyle} onClick={handleMoreClick}>детальніше</button>
-        </div>
-        <div>
-            {bottomDiv}
+        <div className="flex justify-center">
+            <Link className={submitButtonStyle} to={`/edit-hardware/${hardwareData._id}`}>Деталі</Link>
         </div>
     </div>
 }

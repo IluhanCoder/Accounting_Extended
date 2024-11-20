@@ -7,8 +7,6 @@ import { toast } from "react-toastify";
 import hardwareService from "./hardware-service";
 import Hardware, { Category, ConvertHardwareFormToHardware, ConvertHardwareResToHardwareForm, HardwareFormData, HardwareResponse, IpHardware, Service } from "./hardware-types";
 import Departament, { DepartamentResponse } from "../departament/departament-types";
-import DepartamentPicker from "../departament/departament-picker";
-import UserPicker from "../user/user-picker";
 import User, { UserResponse } from "../user/user-types";
 import { HardwareFormError } from "./hardware-error";
 import ServicePusher from "./service-pusher";
@@ -75,29 +73,29 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
         }
     }
 
-    const handleDepartamentSelect = (departament: DepartamentResponse) => {
+    const handleDepartamentSelect = (name: string, departament: DepartamentResponse | null) => {
         handleDepartamentDeselect();
-        setFormData({...formData, departament: departament});
+        if(departament) setFormData({...formData, departament: departament});
     }
 
     const handleDepartamentDeselect = () => {
         setFormData({...formData, departament: undefined});
     }
 
-    const handleUserPick = (user: User) => {
-        setFormData({...formData, user: user});
+    const handleUserPick = (name: string, user: User | null) => {
+        if(user) setFormData({...formData, user: user});
     }
 
-    const handleAdminPick = (user: User) => {
-        setFormData({...formData, admin: user});
+    const handleAdminPick = (name: string, user: User | null) => {
+        if(user) setFormData({...formData, admin: user});
     }
 
     const handleServicePush = (service: Service) => {
         setFormData({...formData, service: [...formData.service, service]});
     }
 
-    const handleUtilizationChargeSelect = (user: User) => {
-        if(formData.utilization?.date)
+    const handleUtilizationChargeSelect = (name: string, user: User | null) => {
+        if(user && formData.utilization?.date)
             setFormData({...formData, utilization: {...formData.utilization, charge: user, sell: formData.utilization.sell ?? false}})
         else toast.error("ви маєте обрати дату списання");
     }
@@ -222,19 +220,19 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                     </div>
                 }
                 <div className="flex gap-2 w-full">
-                    <div className="flex flex-col px-10 w-1/2 border rounded p-2">
-                        {edit && <DepartamentPicker handlePush={handleDepartamentSelect}/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">відділ</label>}
+                    {/* <div className="flex flex-col px-10 w-1/2 border rounded p-2">
+                        {edit && <DepartamentPicker onChange={handleDepartamentSelect}/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">відділ</label>}
                         <div className="text-2xl flex justify-center pb-4">{formData.departament?.name}</div>
-                    </div>
-                    <div className="flex flex-col px-10 w-1/2 border rounded p-2">
-                        {edit && <UserPicker closeAfterSubit label="користувач" handlePush={handleUserPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">користувач</label>}
+                    </div> */}
+                    {/* <div className="flex flex-col px-10 w-1/2 border rounded p-2">
+                        {edit && <UserPicker closeAfterSubmit label="користувач" onChange={handleUserPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">користувач</label>}
                         {formData.user && <div className="text-2xl flex justify-center pb-4">{`${formData.user?.nickname} (${formData.user?.name} ${formData.user?.surname} ${formData.user?.lastname})`}</div>}
-                    </div>
+                    </div> */}
                 </div>
-                <div className="flex flex-col px-10 w-full border rounded p-2">
-                    {edit && <UserPicker closeAfterSubit label="відповідальний адміністратор" role="admin" handlePush={handleAdminPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">відповідальний адміністратор</label>}
+                {/* <div className="flex flex-col px-10 w-full border rounded p-2">
+                    {edit && <UserPicker closeAfterSubmit label="відповідальний адміністратор" role="admin" onChange={handleAdminPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">відповідальний адміністратор</label>}
                     {formData.admin && <div className="text-2xl flex justify-center pb-4">{`${formData.admin?.nickname} (${formData.admin?.name} ${formData.admin?.surname} ${formData.admin?.lastname})`}</div>}
-                </div>
+                </div> */}
                 <div className="flex flex-col gap-2 px-10">
                     <label className="font-bold text-gray-600 text-xl">обслуговування</label>
                     {edit && <ServicePusher pushHandler={handleServicePush}/>}
@@ -267,9 +265,9 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                                 <label>На продаж</label>
                         </div>}
                             </div>
-                            <div className="w-full border p-2 rounded">{deepEdit && <UserPicker closeAfterSubit label="відповідальний за списання" role="admin" handlePush={handleUtilizationChargeSelect} self/> || <label>відповідальний за списання</label>}
+                            {/* <div className="w-full border p-2 rounded">{deepEdit && <UserPicker closeAfterSubmit label="відповідальний за списання" role="admin" onChange={handleUtilizationChargeSelect} self/> || <label>відповідальний за списання</label>}
                                 {formData.utilization?.charge && <div className="text-2xl flex justify-center pb-4">{formData.utilization?.charge?.name}</div>}
-                            </div>
+                            </div> */}
                         </div>
                         
                         { deepEdit && <div className="flex justify-center">

@@ -51,7 +51,7 @@ function HardwareRequestPage() {
         setFormData({...defaultData});
     }
 
-    const handleUserPick = (user: User) => {
+    const handleUserPick = (name: string, user: User | null) => {
         setFormData({...formData, user});
     }
 
@@ -62,8 +62,8 @@ function HardwareRequestPage() {
         });
     };    
 
-    const handleRequestToPush = (user: User) => {
-        setFormData({...formData, requestTo: user})
+    const handleRequestToPush = (name: string, user: User | null) => {
+        if(user) setFormData({...formData, requestTo: user})
     }
 
     const handleRentSwitch = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -125,11 +125,11 @@ function HardwareRequestPage() {
             </div>
             
             <div className="border p-2 rounded">
-                <UserPicker closeAfterSubit label="користувач (якщо є)" handlePush={handleUserPick}/>
+                <UserPicker closeAfterSubmit label="користувач (якщо є)" onChange={handleUserPick}/>
                 <div className="flex justify-center text-xl">{formData.user?.nickname}</div>
             </div>
             <div className="border p-2 rounded">
-                <UserPicker closeAfterSubit label="керівник, якому надсилатиметься запит" handlePush={handleRequestToPush} role="main"/>
+                <UserPicker closeAfterSubmit label="керівник, якому надсилатиметься запит" onChange={handleRequestToPush} role="main"/>
                 <div className="flex justify-center text-xl">{formData.requestTo?.nickname}</div>
             </div>
             <div className="flex justify-center mt-2">

@@ -28,4 +28,8 @@ export default new class UserStore {
   isJustUser(): boolean {
     return this.user?.role === "user"
   }
+
+  isCurrentUser(user: User): boolean {
+    return this.user?._id === user._id
+  }
 }

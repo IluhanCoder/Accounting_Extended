@@ -48,8 +48,8 @@ function ModificationRequestPage() {
         });
     };    
 
-    const handleAdminPush = (user: User) => {
-        setFormData({...formData, admin: user})
+    const handleAdminPush = (name: string, user: User | null) => {
+        if(user) setFormData({...formData, admin: user})
     }
 
     return <div className="p-6">
@@ -79,7 +79,7 @@ function ModificationRequestPage() {
                 </select>
             </div>
             <div className="border p-2 rounded mt-2">
-                <UserPicker closeAfterSubit label="відповідальний адміністратор" handlePush={handleAdminPush} role="admin"/>
+                <UserPicker closeAfterSubmit label="відповідальний адміністратор" onChange={handleAdminPush} role="admin"/>
                 <div className="flex justify-center text-xl">{formData.admin?.nickname}</div>
             </div>
             <div className="flex justify-center mt-2">

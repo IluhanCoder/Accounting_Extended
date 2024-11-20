@@ -13,8 +13,8 @@ function NewDepartamentPage() {
         users: []
     });
 
-    const handleUserPush = (user: User) => {
-        if(!formData.users.includes(user))
+    const handleUserPush = (name: string, user: User | null) => {
+        if(user && !formData.users.includes(user))
             setFormData({name: formData.name, users: [...formData.users, user]});
     }
 
@@ -44,7 +44,7 @@ function NewDepartamentPage() {
             </div>
             <div className="flex flex-col border rounded p-2">
                 <div className="flex flex-col gap-2 py-2">
-                    <UserPicker label="співробітники відділу" handlePush={handleUserPush} self/>
+                    <UserPicker label="співробітники відділу" onChange={handleUserPush} self/>
                 </div>
                 <div className="flex gap-2 flex-wrap">{formData.users.map((user: User) => 
                     <div className="flex justify-between py-2 px-4 border rounded gap-4">

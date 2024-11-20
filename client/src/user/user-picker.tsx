@@ -1,29 +1,33 @@
-import { useEffect, useState } from "react";
-import User from "./user-types";
+import stringHelper from "../misc/string-helper";
+import SelectionModal from "../selection/selection-modal";
 import userService from "./user-service";
-import Picker from "../misc/picker";
-import LoadingScreen from "../misc/loading-screen";
+import userStore from "./user-store";
+import User from "./user-types";
 
 interface LocalParams {
-    handlePush: (user: User) => void,
-    self?: boolean,
+    onChange: (name: string, value: User | null) => void,
+    label?: string,
+    closeAfterSubmit?: boolean,
     role?: string,
-    label: string,
-    closeAfterSubit?: boolean
+    self?: boolean
 }
 
-function UserPicker ({handlePush, self, role, label, closeAfterSubit}: LocalParams) {
-    const [users, setUsers] = useState<User[]>();
-
-    const getData = async () => {
-        const res = await userService.fetchUsers(self, role);
-        setUsers([...res.users]);
+function UserPicker({onChange, label, closeAfterSubmit, role, self}: LocalParams) {
+    const getUsers = async (): Promise<User[]> => {
+        return (await userService.fetchUsers(undefined, undefined)).users;
     }
 
-    useEffect(() => { getData() }, []);
+    const usersDisplayField = (user: User) => `${user.nickname} (${user.name} ${user.surname})`
 
-    if(users) return <Picker<User> nickName closeAfterSubmit={closeAfterSubit} label={label} data={users} handlePush={handlePush}/>
-    else return <LoadingScreen/>
+    const userFilterField = (user: User, value: string) => {
+        const isSelf = self ? userStore.isCurrentUser(user) : true;
+        const matchesRole = role ? user.role === role : true;
+        const namesMatches = stringHelper.unstrictCompare(user.nickname, value) || stringHelper.unstrictCompare(user.name, value) || stringHelper.unstrictCompare(user.surname, value) || stringHelper.unstrictCompare(user.lastname, value);
+
+        return isSelf && matchesRole && namesMatches;
+    }
+
+    return <SelectionModal<User> filterField={userFilterField} closeAfterSubmit name="user" displayField={usersDisplayField} fetchData={getUsers} label={label ?? "користувач"} onChange={onChange}/>
 }
 
-export default UserPicker;
+export default UserPicker

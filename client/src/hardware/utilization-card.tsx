@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { submitButtonStyle } from "../styles/button-syles";
-import HardwareCard from "./hardware-card";
+import HardwareRecCard from "./hardware-rec-card";
 import hardwareService from "./hardware-service";
 import { HardwareResponse } from "./hardware-types";
 
@@ -20,7 +20,7 @@ function UtilizationCard({hardwareData, callBack}: LocalParams) {
         <button className={submitButtonStyle} onClick={handleUtilization}>утилізувати</button>
     </div>
 
-    return <HardwareCard hardwareData={hardwareData} bottomDiv={bottomDiv}/>
+    return <HardwareRecCard hardwareData={hardwareData} bottomDiv={bottomDiv}/>
 }
 
 export default UtilizationCard;

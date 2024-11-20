@@ -58,8 +58,8 @@ function RegistationPage() {
         }
     }
 
-    const handleAdminChange = (admin: User) => {
-        setFormData({...formData, admin})
+    const handleAdminChange = (name: string, value: User | null) => {
+        if(value) setFormData({...formData, admin: value})
     }
 
     const handleCheckBox = () => {
@@ -109,7 +109,7 @@ function RegistationPage() {
                                 <input className={inputStyle} type="text" name="workTime" onChange={handleChange}/>
                             </div>
                             {formData.role === "user" && <div className="flex flex-col gap-1 border p-2 rounded">
-                                <UserPicker closeAfterSubit label="відповідальний адміністратор" handlePush={handleAdminChange} role="admin" self/>
+                                <UserPicker closeAfterSubmit label="відповідальний адміністратор" onChange={handleAdminChange} role="admin" self/>
                                 <div className="text-2xl text-center p-2">{formData.admin?.nickname}</div>
                             </div>}
                             <div className="flex flex-col gap-1">

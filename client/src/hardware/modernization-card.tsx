@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { submitButtonStyle } from "../styles/button-syles";
 import { HardwareResponse } from "./hardware-types";
-import HardwareCard from "./hardware-card";
+import HardwareRecCard from "./hardware-rec-card";
 import hardwareService from "./hardware-service";
 import { inputStyle } from "../styles/form-styles";
 import { toast } from "react-toastify";
@@ -34,7 +34,7 @@ function ModernizationCard({hardwareData, callBack}: LocalParams) {
                 <button className={submitButtonStyle} onClick={handleSubmit}>затвердити</button>
             </div>}
     </div>
-    return <HardwareCard hardwareData={hardwareData} bottomDiv={bottomDiv}/>
+    return <HardwareRecCard hardwareData={hardwareData} bottomDiv={bottomDiv}/>
 }
 
 export default ModernizationCard;

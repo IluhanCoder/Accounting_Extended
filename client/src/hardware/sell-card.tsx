@@ -2,7 +2,7 @@ import { useState } from "react";
 import { submitButtonStyle } from "../styles/button-syles";
 import { HardwareResponse } from "./hardware-types";
 import hardwareService from "./hardware-service";
-import HardwareCard from "./hardware-card";
+import HardwareRecCard from "./hardware-rec-card";
 import { inputStyle } from "../styles/form-styles";
 import { toast } from "react-toastify";
 
@@ -33,7 +33,7 @@ function SellCard ({hardwareData, callBack}: LocalParams) {
             </div>}
     </>
 
-    return <HardwareCard bottomDiv={bottomDiv} hardwareData={hardwareData}/>
+    return <HardwareRecCard bottomDiv={bottomDiv} hardwareData={hardwareData}/>
 }
 
 export default SellCard;
