@@ -16,7 +16,7 @@ function DepartamnetPicker({onChange}: LocalParams) {
 
     const departamentFilterField = (departament: Departament, value: string) => stringHelper.unstrictCompare(departament.name, value);
 
-    return <SelectionPlate<Departament> closeAfterSubmit searchPanelLabel="назва відділу" filterField={departamentFilterField} label="відділення" name="departament" displayField={departamentsDisplayField} fetchData={getDepartaments} onChange={onChange}/>
+    return <SelectionPlate<Departament> className="flex gap-4 px-4 py-1" closeAfterSubmit searchPanelLabel="назва відділу" filterField={departamentFilterField} label="відділення" name="departament" displayField={departamentsDisplayField} fetchData={getDepartaments} onChange={onChange}/>
 }
 
 export default DepartamnetPicker

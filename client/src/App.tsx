@@ -43,7 +43,7 @@ function App() {
   const {form} = formStore;
 
   return (
-    <div className='h-full flex bg-blue-100'>
+    <div className='h-full flex bg-blue-50'>
       <BrowserRouter>
         <FormCloserProvider>
         <ToastContainer/>

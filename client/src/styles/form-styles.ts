@@ -12,5 +12,5 @@ export const smallInputStyle = "border border-gray-200 rounded-sm px-1 focus:bor
 
 export const smallSelectStyle = "border border-gray-200 rounded-sm px-4 focus:border-blue-100"
 
-const formStyle = "bg-white rounded gap-2 p-6 flex flex-col shadow-md border-[0.25px] border-gray-300";
+const formStyle = "bg-white rounded gap-2 p-6 flex flex-col max-h-1/3 shadow-md border-[0.25px] border-gray-300";
 export default formStyle;

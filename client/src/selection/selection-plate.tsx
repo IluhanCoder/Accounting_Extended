@@ -11,10 +11,12 @@ interface PickerParams<T> {
   closeAfterSubmit?: boolean,
   displayField: (item: T) => string,
   filterField: (item: T, value: string) => boolean,
-  searchPanelLabel?: string
+  searchPanelLabel?: string,
+  className?: string,
+  placeholder?: string
 }
 
-function SelectionPlate<T>({ fetchData, filterField, onChange, name, label, closeAfterSubmit, displayField, searchPanelLabel }: PickerParams<T>) {
+function SelectionPlate<T>({ fetchData, placeholder, filterField, onChange, name, label, closeAfterSubmit, displayField, searchPanelLabel, className }: PickerParams<T>) {
   const [items, setItems] = useState<T[]>();
   const [pickedItem, setPickedItem] = useState<T | null>(null);
 
@@ -39,16 +41,15 @@ function SelectionPlate<T>({ fetchData, filterField, onChange, name, label, clos
   if (!items) return <LoadingScreen />;
 
   return (
-    <div>
-      <SelectFormOpener<T> searchPanelLabel={searchPanelLabel} filterField={filterField} label={label} displayField={displayField} closeAfterSubmit={closeAfterSubmit} data={items} onChange={handlePush} />
-      <div>{pickedItem ? displayField(pickedItem) : null}</div>
-      {pickedItem && (
-        <div>
-          <button type="button" className={grayButtonStyle + " text-sm h-fit mt-2"} onClick={handleDrop}>
+    <div className={className}>
+      <div className="mt-1">{label}</div>
+      {(pickedItem || placeholder) && (<div className="flex gap-2 px-2">
+        <div className="flex mt-1 text-nowrap font-semibold">{pickedItem ? displayField(pickedItem) : placeholder}</div>
+          <button type="button" className={"text-blue-700 text-sm p-2 h-fit"} onClick={handleDrop}>
             скинути
           </button>
-        </div>
-      )}
+      </div>)}
+      <SelectFormOpener<T> searchPanelLabel={searchPanelLabel} filterField={filterField} displayField={displayField} closeAfterSubmit={closeAfterSubmit} data={items} onChange={handlePush} />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { lightButtonStyle } from "../styles/button-syles";
 import formStore from "../forms/form-store";
 import { inputStyle } from "../styles/form-styles";
 import SearchInput from "../misc/search-input";
+import ItemCard from "./item-card";
 
 interface LocalParams<T> {
     data: T[],
@@ -24,19 +25,16 @@ function SelectionMapper<T>({data, filterField, displayField, closeAfterSubmit, 
         setFilterInput(newValue.length > 0 ? newValue : null);
     };
 
-    return <div className="flex flex-col gap-4 p-4">
+    return <div className="flex flex-col gap-10 p-4">
             <div>
                 <SearchInput placeholder={searchPanelLabel} onChange={handleInputChange}/>
             </div>
-            <div className="flex gap-2 overflow-auto">
-                {filteredItems.map((entry: T, index: number) => 
-                    <div key={index} className="bg-gray-50 rounded border py-2 px-5">
-                        <div className="p-2 text-center">{displayField(entry)}</div>
-                        <div className="flex justify-center">
-                            <button type="button" className={lightButtonStyle} onClick={() => {onChange(entry); if(closeAfterSubmit) formStore.dropForm()}}>{buttonLabel ?? "обрати"}</button>
-                        </div>
-                    </div>
-                )}
+            <div className="w-full h-64 overflow-auto">
+                <div className="flex flex-wrap gap-2 ">
+                    {filteredItems.map((entry: T, index: number) => 
+                        <ItemCard item={entry} onClick={onChange} buttonLabel="обрати" displayField={displayField} index={index} closeAfterSubmit/>
+                    )}
+                </div>
             </div>
         </div>
 }

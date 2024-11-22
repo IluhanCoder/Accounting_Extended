@@ -15,13 +15,13 @@ interface LocalParams<T> {
     data: T[],
     buttonLabel?: string,
     closeAfterSubmit?: boolean,
-    label?: string,
     filterField: (item: T, value: string) => boolean,
     displayField: (item: T) => string,
-    searchPanelLabel?: string
+    searchPanelLabel?: string,
+    label?: string
 }
 
-function SelectFormOpener<T>({onChange, displayField, data, searchPanelLabel, buttonLabel, closeAfterSubmit, label, filterField}: LocalParams<T>) {
+function SelectFormOpener<T>({onChange, displayField, label, data, searchPanelLabel, buttonLabel, closeAfterSubmit, filterField}: LocalParams<T>) {
     if(!buttonLabel) buttonLabel = "додати";
 
     const handleOpenForm = () => {
@@ -31,16 +31,11 @@ function SelectFormOpener<T>({onChange, displayField, data, searchPanelLabel, bu
         formStore.setForm(form);
     }
 
-    return <div className={`flex flex-col gap-2 w-full`}>
-        <div className="flex w-full ">
-            <div className="flex w-full">
-                <div className="flex gap-6 p-2 rounded w-full justify-center">
-                    {label && <label className="mt-1 text-nowrap">{label}</label>}
-                    <button type="button" className={lightButtonStyle} onClick={handleOpenForm}>обрати</button>
-                </div>
+    return <div className="flex w-full ">
+            <div className="flex gap-6 rounded w-full justify-center">
+                <button type="button" className={lightButtonStyle} onClick={handleOpenForm}>обрати</button>
             </div>
         </div>
-    </div>
 }
 
 export default observer(SelectFormOpener);

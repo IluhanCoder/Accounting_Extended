@@ -28,26 +28,26 @@ function SearchPanel({ onChange, isPersonal }: LocalParams) {
     return <div className="flex flex-col gap-2 py-4 w-full">
         <div className="flex flex-col w-full">
             {extendedMode && <div className="pb-4 flex justify-center">
-                <div className="flex flex-col gap-2 bg-white px-6 py-4">
-                    <div className="flex gap-2">
+                <div className="flex flex-col gap-4 bg-white px-6 py-4">
+                    <div className="flex gap-6">
                         <div className="flex flex-col gap-2">
-                            <div>
-                                <select name="category" className={selectStyle} onChange={handleInputChange}>
+                            <div className="w-full">
+                                <select name="category" className={selectStyle + " w-full"} onChange={handleInputChange}>
                                     <option value="">все обладнання</option>
                                     <OptionsMapper options={Categories} />
                                 </select>
                             </div>
-                            <div className="flex flex-grow justify-center gap-4">
+                            <div className="fle w-80 justify-center gap-4">
                                 <input placeholder="серійний номер" className={inputStyle + " w-full"} name="serial" onChange={handleInputChange} />
                             </div>
-                            <div className="flex flex-grow justify-center gap-4">
+                            <div className="flex w-80 justify-center gap-4">
                                 <input placeholder="IP адреса" className={inputStyle + " w-full"} name="ip" onChange={handleInputChange} />
                             </div>
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="flex gap-2">
+                            <div className="flex flex-col gap-2">
                                 {!isPersonal && <div className="flex w-full justify-start p-2 flex-wrap border rounded h-fit ">
-                                    <UserPicker onChange={onChange} />
+                                    <UserPicker label="користувач" onChange={onChange} />
                                 </div>}
                                 <div className="flex w-full justify-start flex-wrap border p-2 rounded h-fit ">
                                     <DepartamnetPicker onChange={onChange} />

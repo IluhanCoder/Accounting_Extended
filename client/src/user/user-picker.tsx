@@ -27,7 +27,7 @@ function UserPicker({onChange, label, closeAfterSubmit, role, self}: LocalParams
         return isSelf && matchesRole && namesMatches;
     }
 
-    return <SelectionPlate<User> searchPanelLabel="нікнейм, імʼя, прізвище, або по-батькові" filterField={userFilterField} closeAfterSubmit name="user" displayField={usersDisplayField} fetchData={getUsers} label={label ?? "вибір користувача"} onChange={onChange}/>
+    return <SelectionPlate<User> className="flex gap-4 px-4 py-1" searchPanelLabel="нікнейм, імʼя, прізвище, або по-батькові" filterField={userFilterField} closeAfterSubmit name="user" displayField={usersDisplayField} fetchData={getUsers} label={label} onChange={onChange}/>
 }
 
 export default UserPicker
