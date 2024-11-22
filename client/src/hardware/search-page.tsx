@@ -80,14 +80,16 @@ function SearchPage({isPersonal}: {isPersonal?: boolean}) {
         filter();
     }, [formData]);
 
-    if(hardware) return <div className="flex flex-col">
+    if(hardware) return <div className="flex h-full flex-col">
         <SearchPanel onChange={handleChange}/>
-        <div className="flex flex-wrap p-4 gap-6" id="results">
-            {hardware.map((hard: HardwareResponse) => 
-                <HardwareCard hardwareData={hard}/>
-            )}
+        <div className="grow overflow-auto">
+            <div className="flex flex-wrap p-4 gap-6" id="results">
+                {hardware.map((hard: HardwareResponse) => 
+                    <HardwareCard hardwareData={hard}/>
+                )}
+            </div>
         </div>
-        <div className="flex justify-center p-2">
+        <div className="flex justify-center p-6">
             <button className={lightButtonStyle} type="button" onClick={generatePdf}>Завантажити звіт</button>
         </div>
     </div>

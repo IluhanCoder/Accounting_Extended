@@ -2,13 +2,14 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { HardwareRequest, ModificationRequest, ServiceRequest, hardwareRequestCredentials, modificationRequestCredentials, modificationRequestResponse, serviceRequestCredentials } from "./request-types";
 import requestService from "./request-service";
 import { toast } from "react-toastify";
-import { inputStyle } from "../styles/form-styles";
+import { inputStyle, selectStyle } from "../styles/form-styles";
 import userStore from "../user/user-store";
 import { observer } from "mobx-react";
 import { submitButtonStyle } from "../styles/button-syles";
 import UserPicker from "../user/user-picker";
 import User, { UserResponse } from "../user/user-types";
 import DatePicker from "../misc/date-picker";
+import { Categories } from "../hardware/hardware-types";
 
 function HardwareRequestPage() {
     const [rentSwitch, setRentSwitch] = useState<boolean>(false);
@@ -90,7 +91,10 @@ function HardwareRequestPage() {
             </div>
             <div className="flex flex-col gap-2 px-10">
                 <label className="font-bold text-gray-600 text-xs">тип</label>
-                <input className={inputStyle} type="text" onChange={handleChange} name="type"/>
+                <select className={selectStyle} name="type" onChange={handleChange}>
+                    {Categories.map(({value, label}: {value: string, label: string}) => 
+                        <option value={value}>{label}</option>)}
+                </select>
             </div>
             <div className="flex flex-col gap-2 px-10">
                 <label className="font-bold text-gray-600 text-xs">модель</label>

@@ -25,7 +25,7 @@ function SelectFormOpener<T>({onChange, displayField, label, data, searchPanelLa
     if(!buttonLabel) buttonLabel = "додати";
 
     const handleOpenForm = () => {
-        const form = <FormComponent className="w-2/3" formLabel={label ?? ""}>
+        const form = <FormComponent className="w-2/3 pt-12" formLabel={label ?? ""}>
                 <SelectionMapper<T> searchPanelLabel={searchPanelLabel} closeAfterSubmit={closeAfterSubmit} displayField={displayField} onChange={onChange} data={data} filterField={filterField}/>
             </FormComponent>;
         formStore.setForm(form);

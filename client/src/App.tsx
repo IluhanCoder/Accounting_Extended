@@ -49,7 +49,7 @@ function App() {
         <ToastContainer/>
           <div className='flex w-full'>
             <Menu/>
-            <div className='w-full'>
+            <div className='grow'>
               <Routes>
                 <Route path='/' element={<LoginPage/>}></Route>
                 <Route path='/registration' element={<AuthGates roles={["admin", "main"]}><RegistrationPage/></AuthGates>}></Route>
