@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import Departament from "./departament-types";
 import departamentService from "./departament-service";
 import { redButtonSyle, submitButtonStyle } from "../styles/button-syles";
-import { inputStyle } from "../styles/form-styles";
+import { inputStyle, staticFormContainerStyle, staticFormStyle } from "../styles/form-styles";
 import User from "../user/user-types";
 import UserPicker from "../user/user-picker";
 import { toast } from "react-toastify";
@@ -34,12 +34,11 @@ function NewDepartamentPage() {
         toast.success("новий відділ було успішно створено");
     }
 
-    return <div className="p-6">
-        <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+    return <div className={staticFormContainerStyle}>
+        <form className={staticFormStyle} onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2 py-2">
                 <div className="flex flex-col gap-2 px-10">
-                    <label className="font-bold text-gray-600 text-xs">назва відділу</label>
-                    <input className={inputStyle} type="text" onChange={(e) => { setFormData({...formData, name: e.target.value}) }} name="name"/>
+                    <input placeholder="назва нового відділу" className={inputStyle} type="text" onChange={(e) => { setFormData({...formData, name: e.target.value}) }} name="name"/>
                 </div>
             </div>
             <div className="flex flex-col border rounded p-2">
@@ -55,10 +54,8 @@ function NewDepartamentPage() {
                     </div>
                 )}</div>
             </div>
-            <div className="flex w-full mt-4 justify-between gap-10">
-                <div>
-                    <button type="submit" className={submitButtonStyle}>Створити</button>
-                </div>
+            <div className="flex w-full mt-4 justify-center">
+                <button type="submit" className={submitButtonStyle}>Створити</button>
             </div>
         </form>
     </div>

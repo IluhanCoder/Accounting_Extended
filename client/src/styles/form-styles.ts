@@ -2,11 +2,15 @@ export const formContainerStyle = "fixed top-0 left-0 w-full h-full bg-blue-900 
 
 export const formSubContainerStyle = "flex content-center justify-center"
 
-export const inputStyle = "border-2 border-gray-200 bg-gray-50 rounded-sm px-2 py-1 focus:border-blue-100"
+export const staticFormStyle = "flex w-1/2 flex-col gap-3 bg-white rounded shadow p-4"
+
+export const staticFormContainerStyle = "flex justify-center p-6";
+
+export const inputStyle = "border border-gray-300 bg-gray-50 rounded-sm text-sm px-2 py-2 focus:border-blue-100"
 
 export const linkStyle = "text-blue-600 visited:text-blue-800"
 
-export const selectStyle = "bg-gray-100 text-xs font-semibold rounded px-4 py-2"
+export const selectStyle = "border border-gray-300 bg-gray-50 text-sm rounded-sm px-4 py-2"
 
 export const smallInputStyle = "border border-gray-200 rounded-sm px-1 focus:border-blue-100"
 

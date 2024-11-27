@@ -60,7 +60,7 @@ export interface HardwareResponse {
 
 export interface HardwareFormData {
     category: string | undefined,
-    type: string | undefined,
+    type: {value: string, label: string} | undefined,
     serial: string,
     model: string,
     year: number,
@@ -95,7 +95,7 @@ export function ConvertHardwareFormToHardware(hardwareFormData: HardwareFormData
 
     const newHardware: Hardware = {
         ...hardwareFormData,
-        type: hardwareFormData.type!,
+        type: hardwareFormData.type?.value!,
         category: hardwareFormData.category!,
         departament: hardwareFormData.departament?._id!,
         user: hardwareFormData.user?._id!,
@@ -118,9 +118,10 @@ export function ConvertHardwareResToHardwareForm(hardwareData: HardwareResponse 
             utilization: {
                 charge: hardwareData.utilization?.charge,
                 date: moment(hardwareData.utilization?.date).format('YYYY-MM-DD'),
-                sell: hardwareData.utilization?.sell!
+                sell: hardwareData.utilization?.sell!,
             },
-            modernization: hardwareData.modernization!
+            modernization: hardwareData.modernization,
+            type: {value: hardwareData.type, label: hardwareData.type}
         }
     else return undefined;
 }

@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { ModificationRequest, modificationRequestCredentials, modificationRequestResponse } from "./request-types";
 import requestService from "./request-service";
 import { toast } from "react-toastify";
-import { inputStyle } from "../styles/form-styles";
+import { inputStyle, staticFormContainerStyle, staticFormStyle } from "../styles/form-styles";
 import userStore from "../user/user-store";
 import { observer } from "mobx-react";
 import { submitButtonStyle } from "../styles/button-syles";
@@ -52,25 +52,22 @@ function ModificationRequestPage() {
         if(user) setFormData({...formData, admin: user})
     }
 
-    return <div className="p-6">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-            <div className="flex justify-center text-2xl">
+    return <div>
+        <div className={staticFormContainerStyle}>
+        <form onSubmit={handleSubmit} className={staticFormStyle}>
+            <div className="flex justify-center py-3 text-2xl">
                 створення запиту на модифікацію обладнання
             </div>
             <div className="flex flex-col gap-2 px-10">
-                <label className="font-bold text-gray-600 text-xs">тип</label>
-                <input className={inputStyle} type="text" onChange={handleChange} name="type"/>
+                <input placeholder="тип" className={inputStyle} type="text" onChange={handleChange} name="type"/>
             </div>
             <div className="flex flex-col gap-2 px-10">
-                <label className="font-bold text-gray-600 text-xs">причина модифікації</label>
-                <input className={inputStyle} type="text" onChange={handleChange} name="reason"/>
+                <input placeholder="причина модифікації" className={inputStyle} type="text" onChange={handleChange} name="reason"/>
             </div>
             <div className="flex flex-col gap-2 px-10">
-                <label className="font-bold text-gray-600 text-xs">бажані характеристики</label>
-                <input className={inputStyle} type="text" onChange={handleChange} name="chars"/>
+                <input placeholder="бажанні характеристики" className={inputStyle} type="text" onChange={handleChange} name="chars"/>
             </div>
             <div className="flex flex-col gap-2 px-10">
-                <label className="font-bold text-gray-600 text-xs">критичність</label>
                 <select className={inputStyle} onChange={handleChange} name="crit">
                     <option value="терміново">терміново</option>
                     <option value="критично">критично</option>
@@ -86,6 +83,7 @@ function ModificationRequestPage() {
                 <button type="submit" className={submitButtonStyle}>створити запит</button>
             </div>
         </form>
+        </div>
     </div>
 }
 

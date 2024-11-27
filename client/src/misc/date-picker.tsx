@@ -1,14 +1,14 @@
 import moment from "moment"
-import { ChangeEvent, useState } from "react";
 import ReactDatePicker from "react-datepicker";
-import { smallInputStyle } from "../styles/form-styles";
+import { inputStyle } from "../styles/form-styles";
 
 interface LocalParams {
     value: {startDate: Date, endDate: Date} | null,
-    handleChange: ({startDate, endDate}: {startDate: Date, endDate: Date}) => void
+    handleChange: ({startDate, endDate}: {startDate: Date, endDate: Date}) => void,
+    className?: string
 }
 
-function DatePicker({handleChange, value}: LocalParams) {
+function DatePicker({handleChange, value, className}: LocalParams) {
     const tempDate = new Date();
     tempDate.setDate((new Date()).getDate() + 10);
 
@@ -22,16 +22,16 @@ function DatePicker({handleChange, value}: LocalParams) {
         handleChange({startDate: (value) ? value.startDate : new Date(), endDate: newValue});
     }
 
-    return <div>
-        <div>
+    return <div className={className}>
+        <div className="flex flex-col gap-1">
             <div>дата початку</div>
             {/* <input type="date" defaultValue={moment((value) ? value.startDate : new Date()).format('YYYY-MM-DD')} onChange={changeStartDateHandler}/> */}
-            <ReactDatePicker locale="ua" className={smallInputStyle} value={moment((value) ? value.startDate : new Date()).format('YYYY-MM-DD')} onChange={changeStartDateHandler}/>
+            <ReactDatePicker locale="ua" className={inputStyle} value={moment((value) ? value.startDate : new Date()).format('YYYY-MM-DD')} onChange={changeStartDateHandler}/>
         </div>
-        <div>
+        <div className="flex flex-col gap-1">
             <div>дата кінця</div>
             {/* <input type="date" defaultValue={moment((value) ? value.endDate: tempDate).format('YYYY-MM-DD')} onChange={changeEndDateHandler}/> */}
-            <ReactDatePicker locale="ua" className={smallInputStyle} value={moment((value) ? value.endDate : new Date()).format('YYYY-MM-DD')} onChange={changeEndDateHandler}/>
+            <ReactDatePicker locale="ua" className={inputStyle} value={moment((value) ? value.endDate : new Date()).format('YYYY-MM-DD')} onChange={changeEndDateHandler}/>
         </div>
     </div>
 }

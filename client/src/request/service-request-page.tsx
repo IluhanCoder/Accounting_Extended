@@ -2,12 +2,14 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { ModificationRequest, ServiceRequest, modificationRequestCredentials, modificationRequestResponse, serviceRequestCredentials } from "./request-types";
 import requestService from "./request-service";
 import { toast } from "react-toastify";
-import { inputStyle } from "../styles/form-styles";
+import { inputStyle, selectStyle, staticFormContainerStyle, staticFormStyle } from "../styles/form-styles";
 import userStore from "../user/user-store";
 import { observer } from "mobx-react";
 import { submitButtonStyle } from "../styles/button-syles";
 import UserPicker from "../user/user-picker";
 import User, { UserResponse } from "../user/user-types";
+import OptionsMapper from "../selection/options-mapper";
+import { Categories } from "../hardware/hardware-types";
 
 function ServiceRequestPage() {
     const defaultData = {
@@ -41,7 +43,7 @@ function ServiceRequestPage() {
         setFormData({...defaultData});
     }
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormData({
           ...formData,
           [event.target.name]: event.target.value,
@@ -52,21 +54,20 @@ function ServiceRequestPage() {
         if(user) setFormData({...formData, admin: user})
     }
 
-    return <div className="p-6">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-            <div className="flex justify-center text-2xl">
-                створення запиту на обслуговування обладнання
+    return <div className={staticFormContainerStyle}>
+        <form onSubmit={handleSubmit} className={staticFormStyle}>
+            <div className="flex justify-center py-3 text-2xl">
+                запит на обслуговування
             </div>
             <div className="flex flex-col gap-2 px-10">
-                <label className="font-bold text-gray-600 text-xs">тип</label>
-                <input className={inputStyle} type="text" onChange={handleChange} name="type"/>
+                <select name="type" className={selectStyle} onChange={handleChange}>
+                    <OptionsMapper options={Categories}/>
+                </select>
             </div>
             <div className="flex flex-col gap-2 px-10">
-                <label className="font-bold text-gray-600 text-xs">опис проблеми</label>
-                <input className={inputStyle} type="text" onChange={handleChange} name="problem"/>
+                <textarea placeholder="опис проблеми" className={inputStyle} onChange={handleChange} name="problem"/>
             </div>
             <div className="flex flex-col gap-2 px-10">
-                <label className="font-bold text-gray-600 text-xs">критичність</label>
                 <select className={inputStyle} onChange={handleChange} name="crit">
                     <option value="терміново">терміново</option>
                     <option value="критично">критично</option>

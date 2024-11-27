@@ -63,7 +63,7 @@ function SearchPanel({ onChange, isPersonal }: LocalParams) {
                 </div>
             </div>}
             <div className="flex w-full justify-center gap-4 px-28">
-                <SearchInput name="model" placeholder="назва моделі" className="w-full" onChange={handleInputChange}/>
+                <SearchInput name="model" placeholder="назва моделі" className="w-full bg-white" onChange={handleInputChange}/>
                 {!extendedMode && <div>
                     <button type="button" className={grayButtonStyle + " text-nowrap text-xs"} onClick={() => setExtendedMode(true)}>
                         розширений пошук

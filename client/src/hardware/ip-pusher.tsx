@@ -3,10 +3,11 @@ import { submitButtonStyle } from "../styles/button-syles";
 import { inputStyle, smallInputStyle } from "../styles/form-styles";
 
 interface LocalParams {
-    handlePush: (ip: string) => void
+    handlePush: (ip: string) => void,
+    className?: string
 }
 
-function IpPusher({handlePush}: LocalParams) {
+function IpPusher({handlePush, className}: LocalParams) {
     const [ip, setIp] = useState<string>();
 
     const hadleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,11 +20,9 @@ function IpPusher({handlePush}: LocalParams) {
         setIp(undefined);
     }
 
-    return <div>
-        <div className="flex gap-2">
-            <input className={inputStyle} type="text" value={ip ?? ""} onChange={hadleChange}/>
-            <button type="button" onClick={handleClick} className={submitButtonStyle}>додати</button>
-        </div>
+    return <div className={className}>
+        <input placeholder="ip-адреса" className={inputStyle + " grow"} type="text" value={ip ?? ""} onChange={hadleChange}/>
+        <button type="button" onClick={handleClick} className={submitButtonStyle}>додати ip</button>
     </div>
 }
 

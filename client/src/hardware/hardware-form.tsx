@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { grayButtonStyle, redButtonSyle, submitButtonStyle } from "../styles/button-syles";
-import { inputStyle, linkStyle, smallInputStyle, smallSelectStyle } from "../styles/form-styles";
+import { inputStyle, linkStyle, selectStyle, smallInputStyle, smallSelectStyle, staticFormContainerStyle, staticFormStyle } from "../styles/form-styles";
 import { LoginCredentials } from "../auth/registration-types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import hardwareService from "./hardware-service";
-import Hardware, { ConvertHardwareFormToHardware, ConvertHardwareResToHardwareForm, HardwareFormData, HardwareResponse, IpHardware, Service } from "./hardware-types";
+import Hardware, { Categories, ConvertHardwareFormToHardware, ConvertHardwareResToHardwareForm, HardwareFormData, HardwareResponse, IpHardware, Service } from "./hardware-types";
 import Departament, { DepartamentResponse } from "../departament/departament-types";
 import User, { UserResponse } from "../user/user-types";
 import { HardwareFormError } from "./hardware-error";
@@ -17,6 +17,7 @@ import userStore from "../user/user-store";
 import { observer } from "mobx-react";
 import ReactDatePicker from "react-datepicker";
 import DateFormater from "../misc/date-formatter";
+import OptionsMapper from "../selection/options-mapper";
 
 interface LocalParams {
     onSubmit: (formData: HardwareFormData) => Promise<void>,
@@ -55,7 +56,7 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
         },
         ip: []
     });
-    const [typeOptions, setTypeOptions] = useState<string[]>(formData.category ? TYPE_OPTIONS[formData.category as keyof object] : []);
+    const [typeOptions, setTypeOptions] = useState<{value: string, label: string}[]>(formData.category ? TYPE_OPTIONS[formData.category as keyof object] : []);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormData({
@@ -156,57 +157,41 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
         setFormData({...formData, utilization: {...formData.utilization, sell: !formData.utilization.sell}});
     }
     
-    return <div className="p-2">
-        <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-2 py-2 gap-4">
-                <div className="flex flex-col gap-2">
-                    <div className="flex gap-4 justify-center">
-                        <label className="font-bold text-gray-600">категорія</label>
-                        <select className={smallSelectStyle + " mt-0.5"} disabled={!edit}  name="category" defaultValue={formData.category} onChange={handleCategoryChange}>
-                            <option value="comp">компʼютерне обладнання</option>
-                            <option value="net">мережеве обладнання</option>
-                            <option value="per">переферійне обладнання</option>
-                        </select>
-                    </div>
-                    <div className="flex gap-4 justify-center">
-                        <label className="font-bold text-gray-600">тип обладнання</label>
-                        <select className={smallSelectStyle + " mt-0.5"} disabled={!edit}  defaultValue={formData.type} name="type" onChange={handleChange}>
-                        {typeOptions.map((option: string) => {
-                            return <option value={option}>
-                                {option}
-                            </option>
-                        })}
-                        </select>
-                    </div>
+    return <div className={staticFormContainerStyle}>
+        <form className={staticFormStyle} onSubmit={handleSubmit}>
+                <div className="flex justify-center">
+                    <h1 className="text-2xl">додавання обладнання</h1>  
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                    <div className="flex flex-col gap-2 px-10">
-                        <label className="font-bold text-gray-600 text-xs">серійний номер</label>
-                        <input disabled={!edit} defaultValue={formData.serial} className={inputStyle} type="text" onChange={handleChange} name="serial"/>
+                    <div className="flex gap-4 justify-center">
+                        <select className={selectStyle + " w-full"} disabled={!edit}  name="category" defaultValue={formData.category} onChange={handleCategoryChange}>
+                            <OptionsMapper options={Categories}/>
+                        </select>
                     </div>
-                    <div className="flex flex-col gap-2 px-10">
-                        <label className="font-bold text-gray-600 text-xs">модель</label>
-                        <input disabled={!edit} defaultValue={formData.model} className={inputStyle} type="text" onChange={handleChange} name="model"/>
+                    <div className="flex gap-4 justify-center">
+                        <select className={selectStyle + " w-full"} disabled={!edit}  defaultValue={formData.type?.value} name="type" onChange={handleChange}>
+                            <OptionsMapper options={typeOptions}/>
+                        </select>
                     </div>
-                    <div className="flex flex-col gap-2 px-10">
-                        <label className="font-bold text-gray-600 text-xs">рік виготовлення</label>
-                        <input disabled={!edit}  type="number" defaultValue={formData.year} className={inputStyle} onChange={handleChange} name="year"/>
+                    <div className="flex flex-col gap-2">
+                        <input placeholder="серійний номер" disabled={!edit} defaultValue={formData.serial} className={inputStyle} type="text" onChange={handleChange} name="serial"/>
                     </div>
-                    <div className="flex flex-col gap-2 px-10">
+                    <div className="flex flex-col gap-2">
+                        <input placeholder="модель" disabled={!edit} defaultValue={formData.model} className={inputStyle} type="text" onChange={handleChange} name="model"/>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <input placeholder="рік виготовлення" disabled={!edit}  type="number" defaultValue={formData.year} className={inputStyle} onChange={handleChange} name="year"/>
+                    </div>
+                    <div className="flex flex-col gap-2">
                         <label className="font-bold text-gray-600 text-xs">дата початку експлуатації</label>
-                        {/* <input disabled={!edit}  defaultValue={moment(formData.exp_start).format('YYYY-MM-DD')} className={inputStyle} type="date" onChange={handleChange} name="exp_start"/> */}
                         <ReactDatePicker onChange={(date: Date | null) => {if(date) setFormData({...formData, exp_start: date})}} value={moment(formData.exp_start).format('YYYY-MM-DD')} locale="ua" className={inputStyle + " w-full"}/>
                     </div>
-                </div>
-                <div className="flex flex-col gap-2 px-10">
-                    <label className="font-bold text-gray-600 text-xs">характеристики</label>
-                    <textarea disabled={!edit}  defaultValue={formData.chars} className={inputStyle} onChange={handleChange} name="chars"/>
+                <div className="flex flex-col gap-2">
+                    <textarea placeholder="характеристики" disabled={!edit}  defaultValue={formData.chars} className={inputStyle} onChange={handleChange} name="chars"/>
                 </div>
                 {
                     (formData.category === "net" || "per") && 
-                    <div className="flex flex-col gap-2 px-10">
-                        <label className="font-bold text-gray-600 text-xs">ip адреси</label>
-                        {edit && <IpPusher handlePush={handleIpPush}/>}
+                    <div className="flex flex-col gap-2 py-4">
+                        {edit && <IpPusher className="flex gap-4 w-full" handlePush={handleIpPush}/>}
                         <div className="overflow-auto">
                             <div className="flex flex-col gap-1 ">
                                 {formData.ip.map((ip: string) => {
@@ -233,7 +218,7 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                     {edit && <UserPicker closeAfterSubmit label="відповідальний адміністратор" role="admin" onChange={handleAdminPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">відповідальний адміністратор</label>}
                     {formData.admin && <div className="text-2xl flex justify-center pb-4">{`${formData.admin?.nickname} (${formData.admin?.name} ${formData.admin?.surname} ${formData.admin?.lastname})`}</div>}
                 </div> */}
-                <div className="flex flex-col gap-2 px-10">
+                <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xl">обслуговування</label>
                     {edit && <ServicePusher pushHandler={handleServicePush}/>}
                     <div className="overflow-auto w-full">
@@ -245,16 +230,16 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                         </div>)}</div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-2 px-10">
+                <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xs">наступне обслуговування</label>
                     {/* <input disabled={!edit}  defaultValue={moment(formData.nextService).format('YYYY-MM-DD')} className={inputStyle} type="date" onChange={handleChange} name="nextService"/> */}
                     <ReactDatePicker className={inputStyle + " w-full"} value={moment(formData.nextService).format('YYYY-MM-DD')} onChange={(date: Date|null) => {if(date) setFormData({...formData, nextService: date})}}/>
                 </div>
-                {showRecomendations && <div className="flex flex-col gap-2 px-10">
+                {showRecomendations && <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xs">рекомендації до модернизації</label>
                     <input disabled={!deepEdit}  defaultValue={formData.modernization} className={inputStyle} type="text" onChange={handleModernisationChange} name="modernization"/>
                 </div>}
-                {showRecomendations && <div className="flex flex-col gap-2 px-10">
+                {showRecomendations && <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xl">рекомендації до списання</label>
                         <div className="grid grid-cols-2 gap-2">
                             <div className="flex flex-col gap-2 w-full">
@@ -275,7 +260,6 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                         </div>}
                         
                 </div>}
-            </div>
             {edit && <div className="flex w-full justify-center mt-4">
                 <div className="flex justify-center">
                     <button type="submit" className="text-xl rounded py-1 px-8 bg-blue-600 text-white">{buttonLabel}</button>

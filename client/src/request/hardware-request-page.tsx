@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { HardwareRequest, ModificationRequest, ServiceRequest, hardwareRequestCredentials, modificationRequestCredentials, modificationRequestResponse, serviceRequestCredentials } from "./request-types";
 import requestService from "./request-service";
 import { toast } from "react-toastify";
-import { inputStyle, selectStyle } from "../styles/form-styles";
+import { inputStyle, selectStyle, staticFormContainerStyle, staticFormStyle } from "../styles/form-styles";
 import userStore from "../user/user-store";
 import { observer } from "mobx-react";
 import { submitButtonStyle } from "../styles/button-syles";
@@ -10,6 +10,7 @@ import UserPicker from "../user/user-picker";
 import User, { UserResponse } from "../user/user-types";
 import DatePicker from "../misc/date-picker";
 import { Categories } from "../hardware/hardware-types";
+import OptionsMapper from "../selection/options-mapper";
 
 function HardwareRequestPage() {
     const [rentSwitch, setRentSwitch] = useState<boolean>(false);
@@ -84,42 +85,28 @@ function HardwareRequestPage() {
         setFormData({...formData, rent: newValue});
     }
 
-    return <div className="p-6">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-            <div className="flex justify-center text-2xl">
+    return <div className={staticFormContainerStyle}>
+        <form onSubmit={handleSubmit} className={staticFormStyle}>
+            <div className="flex justify-center text-2xl py-3">
                 створення запиту на обладнання
             </div>
-            <div className="flex flex-col gap-2 px-10">
-                <label className="font-bold text-gray-600 text-xs">тип</label>
-                <select className={selectStyle} name="type" onChange={handleChange}>
-                    {Categories.map(({value, label}: {value: string, label: string}) => 
-                        <option value={value}>{label}</option>)}
+            <div className="flex w-full gap-2 px-10">
+                <select className={selectStyle + " w-full"} name="type" onChange={handleChange}>
+                    <OptionsMapper options={Categories} />
                 </select>
             </div>
-            <div className="flex flex-col gap-2 px-10">
-                <label className="font-bold text-gray-600 text-xs">модель</label>
-                <input className={inputStyle} type="text" onChange={handleChange} name="model"/>
+            <div className="flex w-full gap-2 px-10">
+                <input placeholder="модель" className={inputStyle + " w-full"} type="text" onChange={handleChange} name="model"/>
             </div>
-            <div className="flex flex-col gap-2 px-10">
-                <label className="font-bold text-gray-600 text-xs">бажані характеристики</label>
-                <textarea className={inputStyle} onChange={handleChange} name="chars"/>
+            <div className="flex w-full gap-2 px-10">
+                <textarea placeholder="бажанні характеристики" className={inputStyle + " w-full"} onChange={handleChange} name="chars"/>
             </div>
-            <div className="flex flex-col gap-2 px-10">
-                <label className="font-bold text-gray-600 text-xs">мета застосування</label>
-                <input className={inputStyle} type="text" onChange={handleChange} name="purpose"/>
+            <div className="flex w-full px-10">
+                <input placeholder="мета застосування" className={inputStyle + " w-full"} type="text" onChange={handleChange} name="purpose"/>
             </div>
-            <div className="grid grid-cols-2 gap-2 px-10 py-4">
-                <div className="flex flex-col gap-2 px-10">
-                    <label className="font-bold text-gray-600 text-xs">умови</label>
-                    <select className={inputStyle} value={rentSwitch ? "true" : "false"} onChange={handleRentSwitch}>
-                        <option value="false">купівля</option>
-                        <option value="true">оренда</option>
-                    </select>
-                </div>
-                {rentSwitch && <DatePicker value={formData.rent} handleChange={handleDateChange}/>}
-                <div className="flex flex-col gap-2 px-10">
-                    <label className="font-bold text-gray-600 text-xs">критичність</label>
-                    <select className={inputStyle} onChange={handleChange} name="crit">
+            <div className="px-10">
+                <div className="flex flex-col gap-2">
+                    <select className={selectStyle + " w-full"} onChange={handleChange} name="crit">
                         <option value="терміново">терміново</option>
                         <option value="критично">критично</option>
                         <option value="важливо">важливо</option>
@@ -127,12 +114,20 @@ function HardwareRequestPage() {
                     </select>
                 </div>
             </div>
-            
-            <div className="border p-2 rounded">
-                <UserPicker closeAfterSubmit label="користувач (якщо є)" onChange={handleUserPick}/>
+            <div className="flex flex-col w-full px-10">
+                <div className="flex w-full gap-2">
+                    <select className={selectStyle + " w-full"} value={rentSwitch ? "true" : "false"} onChange={handleRentSwitch}>
+                        <option value="false">купівля</option>
+                        <option value="true">оренда</option>
+                    </select>
+                </div>
+                {rentSwitch && <DatePicker className="flex justify-center gap-6 pt-2 pb-4" value={formData.rent} handleChange={handleDateChange}/>}
+            </div>
+            <div className="flex w-fit border p-2 rounded">
+                <UserPicker className="flex" closeAfterSubmit label="користувач (якщо є)" onChange={handleUserPick}/>
                 <div className="flex justify-center text-xl">{formData.user?.nickname}</div>
             </div>
-            <div className="border p-2 rounded">
+            <div className="flex w-fit border p-2 rounded">
                 <UserPicker closeAfterSubmit label="керівник, якому надсилатиметься запит" onChange={handleRequestToPush} role="main"/>
                 <div className="flex justify-center text-xl">{formData.requestTo?.nickname}</div>
             </div>
