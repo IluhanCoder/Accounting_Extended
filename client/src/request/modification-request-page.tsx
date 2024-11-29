@@ -8,6 +8,7 @@ import { observer } from "mobx-react";
 import { submitButtonStyle } from "../styles/button-syles";
 import UserPicker from "../user/user-picker";
 import User, { UserResponse } from "../user/user-types";
+import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
 
 function ModificationRequestPage() {
     const defaultData = {
@@ -75,9 +76,8 @@ function ModificationRequestPage() {
                     <option value="не терміново">не терміново</option>
                 </select>
             </div>
-            <div className="border p-2 rounded mt-2">
-                <UserPicker closeAfterSubmit label="відповідальний адміністратор" onChange={handleAdminPush} role="admin"/>
-                <div className="flex justify-center text-xl">{formData.admin?.nickname}</div>
+            <div className="flex justify-center p-2 mt-2">
+                <UserPicker className={horizontalSelectionPlateStyle} closeAfterSubmit label="відповідальний адміністратор" onChange={handleAdminPush} role="admin"/>
             </div>
             <div className="flex justify-center mt-2">
                 <button type="submit" className={submitButtonStyle}>створити запит</button>

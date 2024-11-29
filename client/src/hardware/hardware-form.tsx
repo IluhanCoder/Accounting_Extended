@@ -95,6 +95,11 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
         setFormData({...formData, service: [...formData.service, service]});
     }
 
+    const handleServicePull = (index: number) => {
+        const newServices = formData.service.filter((serviceItem: Service, indexOfItem: number) => indexOfItem !== index);
+        setFormData({...formData, service: [...newServices]});
+    }
+
     const handleUtilizationChargeSelect = (name: string, user: User | null) => {
         if(user && formData.utilization?.date)
             setFormData({...formData, utilization: {...formData.utilization, charge: user, sell: formData.utilization.sell ?? false}})
@@ -222,10 +227,13 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                     <label className="font-bold text-gray-600 text-xl">обслуговування</label>
                     {edit && <ServicePusher pushHandler={handleServicePush}/>}
                     <div className="overflow-auto w-full">
-                        <div className="flex gap-2 px-2 flex-col max-h-72">{formData.service.map((service: Service) => <div className="flex border rounded w-full justify-between gap-2 px-6 py-2">
-                            <div>{service.service}</div>
-                            <div className="text-gray-600">
+                        <div className="flex gap-2 px-2 flex-col max-h-72">{formData.service.map((service: Service, index: number) => <div className="flex border rounded w-full justify-between gap-2 px-6 py-2">
+                            <div className="grow overflow-auto">{service.service}</div>
+                            <div className="text-gray-600 text-nowrap">
                                 <DateFormater dayOfWeek value={service.date}/>
+                            </div>
+                            <div className="px-4">
+                                <button className="text-red-600" type="button" onClick={() => handleServicePull(index)}>прибрати</button>
                             </div>
                         </div>)}</div>
                     </div>

@@ -10,6 +10,7 @@ import UserPicker from "../user/user-picker";
 import User, { UserResponse } from "../user/user-types";
 import OptionsMapper from "../selection/options-mapper";
 import { Categories } from "../hardware/hardware-types";
+import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
 
 function ServiceRequestPage() {
     const defaultData = {
@@ -55,19 +56,19 @@ function ServiceRequestPage() {
     }
 
     return <div className={staticFormContainerStyle}>
-        <form onSubmit={handleSubmit} className={staticFormStyle}>
+        <form onSubmit={handleSubmit} className={staticFormStyle + " px-10"}>
             <div className="flex justify-center py-3 text-2xl">
                 запит на обслуговування
             </div>
-            <div className="flex flex-col gap-2 px-10">
+            <div className="flex flex-col gap-2">
                 <select name="type" className={selectStyle} onChange={handleChange}>
                     <OptionsMapper options={Categories}/>
                 </select>
             </div>
-            <div className="flex flex-col gap-2 px-10">
+            <div className="flex flex-col gap-2">
                 <textarea placeholder="опис проблеми" className={inputStyle} onChange={handleChange} name="problem"/>
             </div>
-            <div className="flex flex-col gap-2 px-10">
+            <div className="flex flex-col gap-2">
                 <select className={inputStyle} onChange={handleChange} name="crit">
                     <option value="терміново">терміново</option>
                     <option value="критично">критично</option>
@@ -75,9 +76,9 @@ function ServiceRequestPage() {
                     <option value="не терміново">не терміново</option>
                 </select>
             </div>
-            <div className="border p-2 rounded mt-2">
-                <UserPicker closeAfterSubmit label="відповідальний адміністратор" onChange={handleAdminPush} role="admin"/>
-                <div className="flex justify-center text-xl">{formData.admin?.nickname}</div>
+            <div className="mt-2 flex justify-center">
+                <UserPicker className={horizontalSelectionPlateStyle} closeAfterSubmit label="відповідальний адміністратор" onChange={handleAdminPush} role="admin"/>
+                {/* <div className="flex justify-center text-xl">{formData.admin?.nickname}</div> */}
             </div>
             <div className="flex justify-center mt-2">
                 <button type="submit" className={submitButtonStyle}>створити запит</button>

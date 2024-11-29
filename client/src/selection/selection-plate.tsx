@@ -13,10 +13,12 @@ interface PickerParams<T> {
   filterField: (item: T, value: string) => boolean,
   searchPanelLabel?: string,
   className?: string,
-  placeholder?: string
+  placeholder?: string,
+  buttonLabel?: string,
+  pusherMode?: boolean
 }
 
-function SelectionPlate<T>({ fetchData, placeholder, filterField, onChange, name, label, closeAfterSubmit, displayField, searchPanelLabel, className }: PickerParams<T>) {
+function SelectionPlate<T>({ fetchData, pusherMode, buttonLabel, placeholder, filterField, onChange, name, label, closeAfterSubmit, displayField, searchPanelLabel, className }: PickerParams<T>) {
   const [items, setItems] = useState<T[]>();
   const [pickedItem, setPickedItem] = useState<T | null>(null);
 
@@ -42,14 +44,14 @@ function SelectionPlate<T>({ fetchData, placeholder, filterField, onChange, name
 
   return (
     <div className={className}>
-      <div className="mt-1">{label}</div>
+      <div className="mt-1 overflow-auto">{label}</div>
       {(pickedItem || placeholder) && (<div className="flex gap-2 px-2">
-        <div className="flex mt-1 text-nowrap font-semibold">{pickedItem ? displayField(pickedItem) : placeholder}</div>
-          <button type="button" className={"text-blue-700 text-sm p-2 h-fit"} onClick={handleDrop}>
+        <div className="flex mt-1 text-nowrap font-semibold">{pusherMode ? "" : (pickedItem ? displayField(pickedItem) : placeholder)}</div>
+          {!pusherMode && <button type="button" className={"text-blue-700 text-sm p-2 h-fit"} onClick={handleDrop}>
             скинути
-          </button>
+          </button>}
       </div>)}
-      <SelectFormOpener<T> searchPanelLabel={searchPanelLabel} filterField={filterField} displayField={displayField} closeAfterSubmit={closeAfterSubmit} data={items} onChange={handlePush} />
+      <SelectFormOpener<T> buttonLabel={buttonLabel ?? (pusherMode ? "додати" : "обрати")} searchPanelLabel={searchPanelLabel} filterField={filterField} displayField={displayField} closeAfterSubmit={closeAfterSubmit} data={items} onChange={handlePush} />
     </div>
   );
 }

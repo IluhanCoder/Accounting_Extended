@@ -12,6 +12,7 @@ import { grayButtonStyle, submitButtonStyle } from "../styles/button-syles";
 import OptionsMapper from "../selection/options-mapper";
 import { Categories } from "./hardware-types";
 import SearchInput from "../misc/search-input";
+import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
 
 interface LocalParams {
     onChange: (name: string, value: any) => void,
@@ -46,11 +47,11 @@ function SearchPanel({ onChange, isPersonal }: LocalParams) {
                         </div>
                         <div className="flex flex-col justify-center">
                             <div className="flex flex-col gap-2">
-                                {!isPersonal && <div className="flex w-full justify-start p-2 flex-wrap border rounded h-fit ">
-                                    <UserPicker label="користувач" onChange={onChange} />
+                                {!isPersonal && <div className="flex w-full justify-start p-2 flex-wrap h-fit ">
+                                    <UserPicker className={horizontalSelectionPlateStyle} label="користувач" onChange={onChange} />
                                 </div>}
-                                <div className="flex w-full justify-start flex-wrap border p-2 rounded h-fit ">
-                                    <DepartamnetPicker onChange={onChange} />
+                                <div className="flex w-full justify-start flex-wrap p-2 h-fit ">
+                                    <DepartamnetPicker className={horizontalSelectionPlateStyle} onChange={onChange} />
                                 </div>
                             </div>
                         </div>

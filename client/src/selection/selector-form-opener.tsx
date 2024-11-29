@@ -31,9 +31,9 @@ function SelectFormOpener<T>({onChange, displayField, label, data, searchPanelLa
         formStore.setForm(form);
     }
 
-    return <div className="flex w-full ">
+    return <div className="flex ">
             <div className="flex gap-6 rounded w-full justify-center">
-                <button type="button" className={lightButtonStyle} onClick={handleOpenForm}>обрати</button>
+                <button type="button" className={lightButtonStyle} onClick={handleOpenForm}>{buttonLabel ?? "обрати"}</button>
             </div>
         </div>
 }

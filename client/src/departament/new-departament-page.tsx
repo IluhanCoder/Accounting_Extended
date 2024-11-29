@@ -14,8 +14,12 @@ function NewDepartamentPage() {
     });
 
     const handleUserPush = (name: string, user: User | null) => {
-        if(user && !formData.users.includes(user))
-            setFormData({name: formData.name, users: [...formData.users, user]});
+        if(!user) return;
+        if(formData.users.find((userItem: User) => userItem._id === user._id)) {
+            toast.error("ви вже додали цього користувача");
+            return;
+        }
+        setFormData({name: formData.name, users: [...formData.users, user]});
     }
 
     const handleUserPop = (user: User) => {
@@ -36,23 +40,28 @@ function NewDepartamentPage() {
 
     return <div className={staticFormContainerStyle}>
         <form className={staticFormStyle} onSubmit={handleSubmit}>
+            <div className="flex justify-center">
+                <h1 className="text-2xl">створення нового відділу</h1>
+            </div>
             <div className="flex flex-col gap-2 py-2">
                 <div className="flex flex-col gap-2 px-10">
                     <input placeholder="назва нового відділу" className={inputStyle} type="text" onChange={(e) => { setFormData({...formData, name: e.target.value}) }} name="name"/>
                 </div>
             </div>
             <div className="flex flex-col border rounded p-2">
-                <div className="flex flex-col gap-2 py-2">
-                    <UserPicker label="співробітники відділу" onChange={handleUserPush} self/>
+                <div className="flex justify-center py-4">
+                    <UserPicker pusherMode label="співробітники відділу" onChange={handleUserPush} self/>
                 </div>
-                <div className="flex gap-2 flex-wrap">{formData.users.map((user: User) => 
-                    <div className="flex justify-between py-2 px-4 border rounded gap-4">
-                        <div className="text-xl">{user.nickname}</div>
-                        <div>
-                            <button type="button" onClick={() => handleUserPop(user)} className={redButtonSyle}>прибрати</button>
+                <div className="max-h-72 overflow-auto">
+                    {formData.users.length > 0 && <div className="flex gap-2 flex-wrap">{formData.users.map((user: User) => 
+                        <div className="flex justify-between py-4 px-6 border rounded gap-4 max-w-1/2">
+                            <div className="mt-1 overflow-auto">{`${user.nickname} (${user.name} ${user.surname})`}</div>
+                            <div>
+                                <button type="button" onClick={() => handleUserPop(user)} className={redButtonSyle}>прибрати</button>
+                            </div>
                         </div>
-                    </div>
-                )}</div>
+                    )}</div> || <div className="flex justify-center text-gray-600 p-10">ви не додали користувачів</div>}
+                </div>
             </div>
             <div className="flex w-full mt-4 justify-center">
                 <button type="submit" className={submitButtonStyle}>Створити</button>

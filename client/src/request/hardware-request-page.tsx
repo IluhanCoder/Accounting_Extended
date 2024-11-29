@@ -11,6 +11,7 @@ import User, { UserResponse } from "../user/user-types";
 import DatePicker from "../misc/date-picker";
 import { Categories } from "../hardware/hardware-types";
 import OptionsMapper from "../selection/options-mapper";
+import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
 
 function HardwareRequestPage() {
     const [rentSwitch, setRentSwitch] = useState<boolean>(false);
@@ -123,13 +124,11 @@ function HardwareRequestPage() {
                 </div>
                 {rentSwitch && <DatePicker className="flex justify-center gap-6 pt-2 pb-4" value={formData.rent} handleChange={handleDateChange}/>}
             </div>
-            <div className="flex w-fit border p-2 rounded">
-                <UserPicker className="flex" closeAfterSubmit label="користувач (якщо є)" onChange={handleUserPick}/>
-                <div className="flex justify-center text-xl">{formData.user?.nickname}</div>
+            <div className="flex justify-center p-2 ">
+                <UserPicker className={horizontalSelectionPlateStyle} closeAfterSubmit label="користувач (якщо є)" onChange={handleUserPick}/>
             </div>
-            <div className="flex w-fit border p-2 rounded">
-                <UserPicker closeAfterSubmit label="керівник, якому надсилатиметься запит" onChange={handleRequestToPush} role="main"/>
-                <div className="flex justify-center text-xl">{formData.requestTo?.nickname}</div>
+            <div className="flex justify-center p-2">
+                <UserPicker className={horizontalSelectionPlateStyle} closeAfterSubmit label="керівник, якому надсилатиметься запит" onChange={handleRequestToPush} role="main"/>
             </div>
             <div className="flex justify-center mt-2">
                 <button type="submit" className={submitButtonStyle + " w-1/2"}>створити запит</button>
