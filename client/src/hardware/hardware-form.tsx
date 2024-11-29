@@ -18,6 +18,9 @@ import { observer } from "mobx-react";
 import ReactDatePicker from "react-datepicker";
 import DateFormater from "../misc/date-formatter";
 import OptionsMapper from "../selection/options-mapper";
+import DepartamnetPicker from "../departament/departament-picker";
+import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
+import UserPicker from "../user/user-picker";
 
 interface LocalParams {
     onSubmit: (formData: HardwareFormData) => Promise<void>,
@@ -32,6 +35,10 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
 
     const hasIdProperty = (hardware: any) => {
         return (hardware) ? ((hardware?._id) ? true : false) : false;
+    }
+
+    const validateData = (): boolean => {
+        return Object.values(formData).some((value) => value === undefined || value === null)
     }
 
     const convertedDefaultData: HardwareFormData | undefined = (hasIdProperty(defaultData)) ? ConvertHardwareResToHardwareForm(defaultData as HardwareResponse) : defaultData as HardwareFormData;
@@ -65,10 +72,18 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
         });
     };    
 
+    const handleSelectorChange = (name: string, value: Departament | User | null) => {
+        setFormData({
+            ...formData,
+            [name]: value,
+          });
+    }
+
     const handleSubmit = async (event: FormEvent) => {
         try {
             event.preventDefault();
-            await onSubmit(formData);
+            if(validateData()) await onSubmit(formData);
+            else toast.error("всі поля повинні мати значення");
         } catch (error: any | HardwareFormError) {
             if(error instanceof HardwareFormError) toast.error(error.message);
         }
@@ -209,20 +224,17 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                         </div>
                     </div>
                 }
-                <div className="flex gap-2 w-full">
-                    {/* <div className="flex flex-col px-10 w-1/2 border rounded p-2">
-                        {edit && <DepartamentPicker onChange={handleDepartamentSelect}/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">відділ</label>}
-                        <div className="text-2xl flex justify-center pb-4">{formData.departament?.name}</div>
-                    </div> */}
-                    {/* <div className="flex flex-col px-10 w-1/2 border rounded p-2">
-                        {edit && <UserPicker closeAfterSubmit label="користувач" onChange={handleUserPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">користувач</label>}
-                        {formData.user && <div className="text-2xl flex justify-center pb-4">{`${formData.user?.nickname} (${formData.user?.name} ${formData.user?.surname} ${formData.user?.lastname})`}</div>}
-                    </div> */}
+                <div className="flex flex-col gap-2 w-full">
+                    <div className="flex justify-center p-2">
+                        {edit && <DepartamnetPicker defaultValue={formData.departament} className={horizontalSelectionPlateStyle} onChange={handleSelectorChange}/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">відділ</label>}
+                    </div>
+                    <div className="flex justify-center p-2">
+                        {edit && <UserPicker defaultValue={formData.user} className={horizontalSelectionPlateStyle} closeAfterSubmit label="користувач" onChange={handleUserPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">користувач</label>}
+                    </div>
                 </div>
-                {/* <div className="flex flex-col px-10 w-full border rounded p-2">
-                    {edit && <UserPicker closeAfterSubmit label="відповідальний адміністратор" role="admin" onChange={handleAdminPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">відповідальний адміністратор</label>}
-                    {formData.admin && <div className="text-2xl flex justify-center pb-4">{`${formData.admin?.nickname} (${formData.admin?.name} ${formData.admin?.surname} ${formData.admin?.lastname})`}</div>}
-                </div> */}
+                <div className="flex justify-center w-full p-2">
+                    {edit && <UserPicker defaultValue={formData.admin} className={horizontalSelectionPlateStyle} closeAfterSubmit label="відповідальний адміністратор" role="admin" onChange={handleAdminPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">відповідальний адміністратор</label>}
+                </div>
                 <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xl">обслуговування</label>
                     {edit && <ServicePusher pushHandler={handleServicePush}/>}

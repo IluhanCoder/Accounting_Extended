@@ -10,17 +10,18 @@ interface PickerParams<T> {
   label?: string,
   closeAfterSubmit?: boolean,
   displayField: (item: T) => string,
-  filterField: (item: T, value: string) => boolean,
+  filterField: (item: T, value: string | null) => boolean,
   searchPanelLabel?: string,
   className?: string,
   placeholder?: string,
   buttonLabel?: string,
-  pusherMode?: boolean
+  pusherMode?: boolean,
+  defaultValue?: T
 }
 
-function SelectionPlate<T>({ fetchData, pusherMode, buttonLabel, placeholder, filterField, onChange, name, label, closeAfterSubmit, displayField, searchPanelLabel, className }: PickerParams<T>) {
+function SelectionPlate<T>({ fetchData, pusherMode, defaultValue, buttonLabel, placeholder, filterField, onChange, name, label, closeAfterSubmit, displayField, searchPanelLabel, className }: PickerParams<T>) {
   const [items, setItems] = useState<T[]>();
-  const [pickedItem, setPickedItem] = useState<T | null>(null);
+  const [pickedItem, setPickedItem] = useState<T | null>(defaultValue ?? null);
 
   const getData = async () => {
     const data = await fetchData();

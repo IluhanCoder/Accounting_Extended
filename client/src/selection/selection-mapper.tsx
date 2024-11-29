@@ -7,7 +7,7 @@ import ItemCard from "./item-card";
 
 interface LocalParams<T> {
     data: T[],
-    filterField: (item: T, value: string) => boolean,
+    filterField: (item: T, value: string | null) => boolean,
     displayField: (item: T) => string,
     closeAfterSubmit?: boolean,
     onChange: (item: T) => void,
@@ -18,7 +18,7 @@ interface LocalParams<T> {
 function SelectionMapper<T>({data, filterField, displayField, closeAfterSubmit, onChange, buttonLabel, searchPanelLabel}: LocalParams<T>) {
     const [filterInput, setFilterInput] = useState<string | null>(null);
 
-    const filteredItems = filterInput ? data.filter((entry: T) => filterField(entry, filterInput)) : data
+    const filteredItems = data.filter((entry: T) => filterField(entry, filterInput))
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const newValue: string = event.target.value;

@@ -15,7 +15,7 @@ interface LocalParams<T> {
     data: T[],
     buttonLabel?: string,
     closeAfterSubmit?: boolean,
-    filterField: (item: T, value: string) => boolean,
+    filterField: (item: T, value: string | null) => boolean,
     displayField: (item: T) => string,
     searchPanelLabel?: string,
     label?: string

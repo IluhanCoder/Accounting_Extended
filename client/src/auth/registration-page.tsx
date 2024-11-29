@@ -10,6 +10,7 @@ import User from "../user/user-types";
 import { DepartamentResponse } from "../departament/departament-types";
 import UserPicker from "../user/user-picker";
 import userStore from "../user/user-store";
+import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
 
 function RegistationPage() {
     const navigate = useNavigate();
@@ -101,9 +102,8 @@ function RegistationPage() {
                     <div className="flex flex-col gap-1">
                         <input placeholder="робочий час" className={inputStyle} type="text" name="workTime" onChange={handleChange} />
                     </div>
-                    {formData.role === "user" && <div className="flex flex-col gap-1 border p-2 rounded">
-                        <UserPicker closeAfterSubmit label="відповідальний адміністратор" onChange={handleAdminChange} role="admin" self />
-                        <div className="text-2xl text-center p-2">{formData.admin?.nickname}</div>
+                    {formData.role === "user" && <div className="flex justify-center gap-1 p-2 ">
+                        <UserPicker className={horizontalSelectionPlateStyle} closeAfterSubmit label="відповідальний адміністратор" onChange={handleAdminChange} role="admin" self />
                     </div>}
                     <div className="flex flex-col gap-1">
                         <input placeholder="пароль" className={inputStyle} type="password" onChange={handleChange} name="password" />
