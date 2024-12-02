@@ -22,7 +22,7 @@ export default interface Hardware {
     service: Service[],
     nextService: Date,
     admin: string,
-    modernization: string | undefined,
+    modification: string | undefined,
     utilization?: {
         date: Date,
         charge: string,
@@ -50,7 +50,7 @@ export interface HardwareResponse {
     nextService: Date,
     admin: User,
     ip: string[],
-    modernization: string | undefined,
+    modification: string | undefined,
     utilization?: {
         date: Date,
         charge: User,
@@ -71,7 +71,7 @@ export interface HardwareFormData {
     service: Service[],
     nextService: Date,
     admin: User | undefined,
-    modernization: string | undefined,
+    modification: string | undefined,
     utilization: { date: string, charge: User | undefined, sell: boolean } | null,
     ip: string[]
 }
@@ -85,7 +85,7 @@ export interface SelledHardwareResponse {
 function hasUndefined(data: HardwareFormData | HardwareResponse): boolean {
     for(const key in data) {
         const field = data[key as keyof (HardwareFormData | HardwareResponse)];
-        if(key !== "utilization" && key !== "modernization" && key !== "user" && field === undefined) return true;
+        if(key !== "utilization" && key !== "modification" && key !== "user" && field === undefined) return true;
     }
     return false;
 }
@@ -120,7 +120,7 @@ export function ConvertHardwareResToHardwareForm(hardwareData: HardwareResponse 
                 date: moment(hardwareData.utilization?.date).format('YYYY-MM-DD'),
                 sell: hardwareData.utilization?.sell!,
             },
-            modernization: hardwareData.modernization,
+            modification: hardwareData.modification,
             type: {value: hardwareData.type, label: hardwareData.type}
         }
     else return undefined;

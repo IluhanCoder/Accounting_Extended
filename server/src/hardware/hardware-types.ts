@@ -19,7 +19,7 @@ export default interface Hardware {
     }[],
     nextService: Date,
     admin: mongoose.Types.ObjectId,
-    modernization: string,
+    modification: string,
     utilization?: {
         date: Date,
         charge: mongoose.Types.ObjectId,
@@ -40,7 +40,7 @@ export interface HardwareResponse {
     service: Service[],
     nextService: Date,
     admin: UserResponse,
-    modernization: string,
+    modification: string,
     utilization?: {
         date: Date,
         charge: UserResponse,

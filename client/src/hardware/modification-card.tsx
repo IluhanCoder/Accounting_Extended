@@ -11,7 +11,7 @@ interface LocalParams {
     callBack: () => void
 }
     
-function ModernizationCard({hardwareData, callBack}: LocalParams) {
+function ModificationCard({hardwareData, callBack}: LocalParams) {
     const [showInput, setShowInput] = useState<boolean>(false);
     const [chars, setChars] = useState<string>("");
 
@@ -37,4 +37,4 @@ function ModernizationCard({hardwareData, callBack}: LocalParams) {
     return <HardwareRecCard hardwareData={hardwareData} bottomDiv={bottomDiv}/>
 }
 
-export default ModernizationCard;
+export default ModificationCard;

@@ -48,7 +48,7 @@ function SelectionPlate<T>({ fetchData, pusherMode, defaultValue, buttonLabel, p
       <div className="mt-1 overflow-auto">{label}</div>
       {(pickedItem || placeholder) && (<div className="flex gap-2 px-2">
         <div className="flex mt-1 text-nowrap font-semibold">{pusherMode ? "" : (pickedItem ? displayField(pickedItem) : placeholder)}</div>
-          {!pusherMode && <button type="button" className={"text-blue-700 text-sm p-2 h-fit"} onClick={handleDrop}>
+          {!pusherMode && <button id="drop-selection-button" type="button" className={"text-blue-700 text-sm p-2 h-fit"} onClick={handleDrop}>
             скинути
           </button>}
       </div>)}

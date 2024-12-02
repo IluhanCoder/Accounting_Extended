@@ -9,17 +9,30 @@ import { submitButtonStyle } from "../styles/button-syles";
 import UserPicker from "../user/user-picker";
 import User, { UserResponse } from "../user/user-types";
 import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
+import OptionsMapper from "../selection/options-mapper";
+import { Categories } from "../hardware/hardware-types";
+import TYPE_OPTIONS from "../hardware/type-options";
+import DropForm from "../forms/drop-form";
 
 function ModificationRequestPage() {
     const defaultData = {
         requester: userStore?.user?._id,
         type: "",
+        category: Categories[0].value,
         reason: "",
         chars: "",
         crit: "терміново",
-        admin: undefined
+        admin: null
     }
     const [formData, setFormData] = useState<modificationRequestCredentials>(defaultData);
+    const [typeOptions, setTypeOptions] = useState<{value: string, label: string}[]>(formData.category ? TYPE_OPTIONS[formData.category as keyof object] : []);
+
+    const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        const newValue = event.target.value;
+        const newOptions = TYPE_OPTIONS[newValue as keyof object];
+        setTypeOptions([...newOptions]);
+        setFormData({...formData, category: newValue, type: newOptions[0]});
+    }
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
@@ -37,9 +50,11 @@ function ModificationRequestPage() {
             date: new Date()
         };
         toast("обробка запиту...");
-        await requestService.createModificationRequest(request as ModificationRequest);
+        await requestService.createmodificationRequest(request as ModificationRequest);
         toast.success("запит було успішно надіслано");
+
         setFormData({...defaultData});
+        DropForm();
     }
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -55,12 +70,19 @@ function ModificationRequestPage() {
 
     return <div>
         <div className={staticFormContainerStyle}>
-        <form onSubmit={handleSubmit} className={staticFormStyle}>
+        <form id="form" onSubmit={handleSubmit} className={staticFormStyle}>
             <div className="flex justify-center py-3 text-2xl">
                 створення запиту на модифікацію обладнання
             </div>
             <div className="flex flex-col gap-2 px-10">
-                <input placeholder="тип" className={inputStyle} type="text" onChange={handleChange} name="type"/>
+                <select name="category" className={inputStyle} onChange={handleCategoryChange}>
+                    <OptionsMapper options={Categories}/>
+                </select>
+            </div>
+            <div className="flex flex-col gap-2 px-10">
+                <select name="type" className={inputStyle} onChange={handleChange}>
+                    <OptionsMapper options={typeOptions}/>
+                </select>
             </div>
             <div className="flex flex-col gap-2 px-10">
                 <input placeholder="причина модифікації" className={inputStyle} type="text" onChange={handleChange} name="reason"/>

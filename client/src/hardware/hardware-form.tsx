@@ -55,7 +55,7 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
         service: [],
         nextService: new Date(),
         admin: undefined,
-        modernization: undefined,
+        modification: undefined,
         utilization: {
             charge: undefined,
             date: moment().format('YYYY-MM-DD'),
@@ -165,8 +165,8 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
 
     const handleModernisationChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        if(value.length === 0) setFormData({...formData, modernization: undefined});
-        else setFormData({...formData, modernization: value});
+        if(value.length === 0) setFormData({...formData, modification: undefined});
+        else setFormData({...formData, modification: value});
     }
 
     const handleSellChange = () => {
@@ -257,7 +257,7 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                 </div>
                 {showRecomendations && <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xs">рекомендації до модернизації</label>
-                    <input disabled={!deepEdit}  defaultValue={formData.modernization} className={inputStyle} type="text" onChange={handleModernisationChange} name="modernization"/>
+                    <input disabled={!deepEdit}  defaultValue={formData.modification} className={inputStyle} type="text" onChange={handleModernisationChange} name="modification"/>
                 </div>}
                 {showRecomendations && <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xl">рекомендації до списання</label>

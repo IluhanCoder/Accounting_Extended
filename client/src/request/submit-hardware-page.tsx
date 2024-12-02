@@ -48,7 +48,7 @@ function SubmitHardwarePage () {
                 service: [],
                 nextService: new Date(),
                 admin: request?.admin,
-                modernization: undefined,
+                modification: undefined,
                 utilization: {
                     charge: undefined,
                     date: moment().format('YYYY-MM-DD'),

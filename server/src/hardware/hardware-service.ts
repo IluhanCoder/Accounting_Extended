@@ -75,7 +75,7 @@ const lookupQuery = [
       service: 1,
       nextService: 1,
       admin: '$adminDetails',
-      modernization: 1,
+      modification: 1,
       utilization: {
         date: '$utilization.date',
         charge: '$utilizationDetails',
@@ -137,7 +137,7 @@ export default new class HardwareService {
     }
 
     async modernize(hardwareId: string, newChars: string) {
-      await hardwareModel.findByIdAndUpdate(hardwareId, {modernization: null, chars: newChars});
+      await hardwareModel.findByIdAndUpdate(hardwareId, {modification: null, chars: newChars});
     }   
 
     async deleteById(hardwareId: string) {

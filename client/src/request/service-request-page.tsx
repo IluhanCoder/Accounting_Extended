@@ -11,6 +11,7 @@ import User, { UserResponse } from "../user/user-types";
 import OptionsMapper from "../selection/options-mapper";
 import { Categories } from "../hardware/hardware-types";
 import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
+import DropForm from "../forms/drop-form";
 
 function ServiceRequestPage() {
     const defaultData = {
@@ -18,7 +19,7 @@ function ServiceRequestPage() {
         type: "",
         problem: "",
         crit: "терміново",
-        admin: undefined
+        admin: null
     }
 
     const [formData, setFormData] = useState<serviceRequestCredentials>(defaultData);
@@ -42,6 +43,7 @@ function ServiceRequestPage() {
         await requestService.createServiceRequest(request as ServiceRequest);
         toast.success("запит було успішно надіслано");
         setFormData({...defaultData});
+        DropForm();
     }
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -56,7 +58,7 @@ function ServiceRequestPage() {
     }
 
     return <div className={staticFormContainerStyle}>
-        <form onSubmit={handleSubmit} className={staticFormStyle + " px-10"}>
+        <form id="form" onSubmit={handleSubmit} className={staticFormStyle + " px-10"}>
             <div className="flex justify-center py-3 text-2xl">
                 запит на обслуговування
             </div>
@@ -78,7 +80,6 @@ function ServiceRequestPage() {
             </div>
             <div className="mt-2 flex justify-center">
                 <UserPicker className={horizontalSelectionPlateStyle} closeAfterSubmit label="відповідальний адміністратор" onChange={handleAdminPush} role="admin"/>
-                {/* <div className="flex justify-center text-xl">{formData.admin?.nickname}</div> */}
             </div>
             <div className="flex justify-center mt-2">
                 <button type="submit" className={submitButtonStyle}>створити запит</button>

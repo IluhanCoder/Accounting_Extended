@@ -16,7 +16,7 @@ const hardwareSchema = new mongoose.Schema({
     }],
     nextService: Date,
     admin: mongoose.Types.ObjectId,
-    modernization: { 
+    modification: { 
         type: String,
         required: false
     },

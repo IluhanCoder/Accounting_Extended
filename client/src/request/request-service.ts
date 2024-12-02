@@ -10,7 +10,7 @@ export default new class RequestService {
         await $api.post("/service-request", {data});
     }
 
-    async createModificationRequest(data: ModificationRequest) {
+    async createmodificationRequest(data: ModificationRequest) {
         await $api.post("/modification-request", {data});
     }
 

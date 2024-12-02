@@ -12,6 +12,7 @@ import DatePicker from "../misc/date-picker";
 import { Categories } from "../hardware/hardware-types";
 import OptionsMapper from "../selection/options-mapper";
 import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
+import DropForm from "../forms/drop-form";
 
 function HardwareRequestPage() {
     const [rentSwitch, setRentSwitch] = useState<boolean>(false);
@@ -52,6 +53,7 @@ function HardwareRequestPage() {
         await requestService.createHardwareRequest(request as HardwareRequest);
         toast.success("запит було успішно надіслано");
         setFormData({...defaultData});
+        DropForm();
     }
 
     const handleUserPick = (name: string, user: User | null) => {
@@ -87,7 +89,7 @@ function HardwareRequestPage() {
     }
 
     return <div className={staticFormContainerStyle}>
-        <form onSubmit={handleSubmit} className={staticFormStyle}>
+        <form id="form" onSubmit={handleSubmit} className={staticFormStyle}>
             <div className="flex justify-center text-2xl py-3">
                 створення запиту на обладнання
             </div>

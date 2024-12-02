@@ -13,11 +13,12 @@ export interface modificationRequestResponse {
 
 export interface modificationRequestCredentials {
     requester: string | undefined,
+    category: string,
     type: string,
     reason: string,
     chars: string,
     crit: string,
-    admin: User | undefined
+    admin: User | null
 }
 
 export interface serviceRequestResponse {
@@ -35,7 +36,7 @@ export interface serviceRequestCredentials {
     type: string,
     problem: string,
     crit: string,
-    admin: User | undefined
+    admin: User | null
 }
 
 export interface hardwareRequestResponse {
