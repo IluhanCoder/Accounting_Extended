@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { submitButtonStyle } from "../styles/button-syles";
 import { HardwareResponse } from "./hardware-types";
+import cardStyle from "../styles/card-styles";
 
 interface LocalParams {
     hardwareData: HardwareResponse
@@ -9,7 +10,7 @@ interface LocalParams {
 function HardwareCard({ hardwareData }: LocalParams) {
     console.log(hardwareData);
 
-    return <div className="flex flex-col min-w-72 justify-between shadow shadow-xl shadow-blue-200 bg-white rounded py-4 px-7 gap-1">
+    return <div className={cardStyle}>
         <div className="flex flex-col gap-1 justify-center h-full pb-4">
             <div className="flex justify-center text-xl py-1">
                 {hardwareData.model}
