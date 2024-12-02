@@ -107,7 +107,6 @@ export default new class HardwareService {
             },
             ...lookupQuery
           ]);
-          console.log(result);
           return result[0] as HardwareResponse;
     }
 
@@ -116,8 +115,6 @@ export default new class HardwareService {
       if(match?.user) match = {...match, user: new mongoose.Types.ObjectId(match.user as string)};
       if(match?.admin) match = {...match, admin: new mongoose.Types.ObjectId(match.admin as string)};
       if(match?.departament) match = {...match, departament: new mongoose.Types.ObjectId(match.departament as string)};
-
-      console.log(match);
 
       const result = await hardwareModel.aggregate([
         {$match: match},

@@ -7,6 +7,7 @@ export default new class RequestService {
     }
 
     async createServiceRequest(data: ServiceRequest) {
+        console.log(data);
         await $api.post("/service-request", {data});
     }
 
@@ -38,12 +39,12 @@ export default new class RequestService {
         return (await $api.get("/ser-requests")).data;
     }
 
-    async deleteModificationRequest(id: string) {
-        await $api.delete(`/modification-request/${id}`);
+    async deleteModificationRequest(id: string, text: string) {
+        await $api.put(`/modification-request/${id}`, {text});
     }
 
-    async deleteServiceRequest(id: string) {
-        await $api.delete(`/service-request/${id}`);
+    async deleteServiceRequest(id: string, text: string) {
+        await $api.put(`/service-request/${id}`, {text});
     }
 }
 

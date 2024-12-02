@@ -14,13 +14,16 @@ import OptionsMapper from "../selection/options-mapper";
 import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
 import DropForm from "../forms/drop-form";
 import TYPE_OPTIONS from "../hardware/type-options";
+import { useParams } from "react-router-dom";
 
 function HardwareRequestPage() {
+    const hardwareId = useParams();
     const [rentSwitch, setRentSwitch] = useState<boolean>(false);
     const defaultType = ((TYPE_OPTIONS[Categories[0].value as keyof object])[0] as {value: string, label: string}).value;
 
     const defaultData = {
         category: Categories[0].value,
+        hardware: hardwareId,
         type: defaultType,
         model: "",
         chars: "",

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { grayButtonStyle, redButtonSyle, submitButtonStyle } from "../styles/button-syles";
 import { inputStyle, linkStyle, selectStyle, smallInputStyle, smallSelectStyle, staticFormContainerStyle, staticFormStyle } from "../styles/form-styles";
 import { LoginCredentials } from "../auth/registration-types";
@@ -33,16 +33,20 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
     const edit = userStore.user?.edit && defaultData?.user?._id === userStore.user._id || userStore.user?.role === "admin" || userStore.user?.role === "main";
     const deepEdit = userStore.user?._id === defaultData?.admin?._id;
 
+    const navigate = useNavigate();
+
     const hasIdProperty = (hardware: any) => {
         return (hardware) ? ((hardware?._id) ? true : false) : false;
     }
 
     const validateData = (): boolean => {
-        return Object.values(formData).some((value) => value === undefined || value === null)
+        return !Object.entries(formData)
+        .some(([key, value]) => key !== 'modernization' && (value === undefined || value === null));
     }
 
     const convertedDefaultData: HardwareFormData | undefined = (hasIdProperty(defaultData)) ? ConvertHardwareResToHardwareForm(defaultData as HardwareResponse) : defaultData as HardwareFormData;
     const [formData, setFormData] = useState<HardwareFormData>(convertedDefaultData ?? {
+        _id: "",
         category: Categories[0].value,
         type: TYPE_OPTIONS["comp"][0],
         serial: "",
@@ -83,7 +87,7 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
         try {
             event.preventDefault();
             if(validateData()) await onSubmit(formData);
-            else toast.error("всі поля повинні мати значення");
+            else console.log(Object.values(formData).some((value) => {console.log(value); console.log(value === undefined || value === null); return value === undefined || value === null}));
         } catch (error: any | HardwareFormError) {
             if(error instanceof HardwareFormError) toast.error(error.message);
         }
@@ -142,6 +146,10 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
         setFormData({...formData, category: newValue, type: newOptions[0]});
     }
 
+    const handleCreateModificationRequest = () => {
+        navigate(`/new-modification-request/${defaultData?._id}`);
+    }
+
     const handleIpPush = (newIp: string) => {
         if(formData.ip.includes(newIp)) { 
             toast.error("такий ip вже додано");
@@ -163,7 +171,11 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
         })
     }
 
-    const handleModernisationChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleCreateServRequest = () => {
+        if(defaultData && defaultData._id) navigate(`/new-service-request/${defaultData._id}`);
+    }
+
+    const handleModificationChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
         if(value.length === 0) setFormData({...formData, modification: undefined});
         else setFormData({...formData, modification: value});
@@ -180,7 +192,7 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
     return <div className={staticFormContainerStyle}>
         <form className={staticFormStyle + " w-3/5"} onSubmit={handleSubmit}>
                 <div className="flex justify-center">
-                    <h1 className="text-2xl">додання обладнання</h1>  
+                    {edit ? <h1 className="text-2xl">редагування обладнання</h1> : <h1 className="text-2xl">додання обладнання</h1>}
                 </div>
                     <div className="flex gap-4 justify-center">
                         <select className={selectStyle + " w-full"} disabled={!edit}  name="category" defaultValue={formData.category} onChange={handleCategoryChange}>
@@ -207,6 +219,9 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                     </div>
                 <div className="flex flex-col gap-2">
                     <textarea placeholder="характеристики" disabled={!edit}  defaultValue={formData.chars} className={inputStyle} onChange={handleChange} name="chars"/>
+                    <div className="flex justify-center py-2">
+                        <button type="button" className={grayButtonStyle + " text-xs"} onClick={handleCreateModificationRequest}>створити заявку на модифікацію</button>
+                    </div>
                 </div>
                 {
                     (formData.category === "net" || "per") && 
@@ -249,30 +264,38 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                             </div>
                         </div>)}</div>
                     </div>
+                    <div className="flex justify-center p-2">
+                        <button onClick={handleCreateServRequest} className={grayButtonStyle + " text-xs"}>
+                            створити запит на обслуговування
+                        </button>
+                    </div>
                 </div>
                 <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xs">наступне обслуговування</label>
                     {/* <input disabled={!edit}  defaultValue={moment(formData.nextService).format('YYYY-MM-DD')} className={inputStyle} type="date" onChange={handleChange} name="nextService"/> */}
-                    <ReactDatePicker className={inputStyle + " w-full"} value={moment(formData.nextService).format('YYYY-MM-DD')} onChange={(date: Date|null) => {if(date) setFormData({...formData, nextService: date})}}/>
+                    <ReactDatePicker disabled={!edit} className={inputStyle + " w-full"} value={moment(formData.nextService).format('YYYY-MM-DD')} onChange={(date: Date|null) => {if(date) setFormData({...formData, nextService: date})}}/>
                 </div>
                 {showRecomendations && <div className="flex flex-col gap-2">
-                    <label className="font-bold text-gray-600 text-xs">рекомендації до модернизації</label>
-                    <input disabled={!deepEdit}  defaultValue={formData.modification} className={inputStyle} type="text" onChange={handleModernisationChange} name="modification"/>
+                    {formData.modification && formData.modification?.length > 0 && <label className="text-xs text-gray-600 font-bold">рекомендації до модифікації</label>}
+                    <textarea disabled={!deepEdit} placeholder="рекомендації до модифікації"  defaultValue={formData.modification} className={inputStyle} onChange={handleModificationChange} name="modification"/>
                 </div>}
                 {showRecomendations && <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xl">рекомендації до списання</label>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="flex flex-col gap-4 py-4">
                             <div className="flex flex-col gap-2 w-full">
                                 <div className="font-bold text-gray-600 text-xs">Дата списання</div>
                                 <ReactDatePicker className={inputStyle + " w-full"} disabled={!deepEdit} value={formData.utilization?.date} onChange={(date: Date | null) => {if(date) handleUtilizationDateChange(date)}}/>
                                 {formData.utilization?.charge && <div className="flex gap-2 text-xl">
-                                <input type="checkbox" checked={formData.utilization?.sell} onChange={handleSellChange}/>
+                                <input disabled={!deepEdit} type="checkbox" checked={formData.utilization?.sell} onChange={handleSellChange}/>
                                 <label>На продаж</label>
                         </div>}
                             </div>
                             {/* <div className="w-full border p-2 rounded">{deepEdit && <UserPicker closeAfterSubmit label="відповідальний за списання" role="admin" onChange={handleUtilizationChargeSelect} self/> || <label>відповідальний за списання</label>}
                                 {formData.utilization?.charge && <div className="text-2xl flex justify-center pb-4">{formData.utilization?.charge?.name}</div>}
                             </div> */}
+                            <div className="flex justify-center">
+                                 <UserPicker className={horizontalSelectionPlateStyle} onChange={handleUtilizationChargeSelect} role="admin" self closeAfterSubmit label="відповідальний за списання" defaultValue={defaultData?.utilization?.charge}/>
+                            </div>
                         </div>
                         
                         { deepEdit && <div className="flex justify-center">

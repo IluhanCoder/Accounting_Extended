@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const modificationRequestSchema = new mongoose.Schema({
     requester: mongoose.Types.ObjectId,
-    type: String,
+    hardware: mongoose.Types.ObjectId,
     reason: String,
     chars: String,
     crit: String,
@@ -14,7 +14,7 @@ export const modificationRequestModel = mongoose.model("ModificationRequest", mo
 
 const serviceRequestSchema = new mongoose.Schema({
     requester: mongoose.Types.ObjectId,
-    type: String,
+    hardware: mongoose.Types.ObjectId,
     problem: String,
     crit: String,
     date: Date,

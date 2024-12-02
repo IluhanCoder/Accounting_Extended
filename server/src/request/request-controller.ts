@@ -154,7 +154,8 @@ export default new class RequestController {
     async deleteModificationRequest(req: Request, res: Response) {
         try {
             const {id} = req.params;
-            await requestService.deleteModificationRequest(id);
+            const {text} = req.body;
+            await requestService.deleteModificationRequest(id, text);
             res.status(200).json({
                 status: "success"
             })
@@ -170,7 +171,8 @@ export default new class RequestController {
     async deleteServiceRequest(req: Request, res: Response) {
         try {
             const {id} = req.params;
-            await requestService.deleteServiceRequest(id);
+            const {text} = req.body;
+            await requestService.deleteServiceRequest(id, text);
             res.status(200).json({
                 status: "success"
             })

@@ -5,7 +5,7 @@ import { submitButtonStyle } from "../styles/button-syles";
 import { inputStyle, smallInputStyle } from "../styles/form-styles";
 import { toast } from "react-toastify";
 import ModificationRequestsMapper from "./modification-req-mapper";
-import ServiceRequestMapper from "./rervice-req-mapper";
+import ServiceRequestMapper from "./service-req-mapper";
 
 function AdminRequestPage() {
     const [serviceRequests, setServiceRequests] = useState<serviceRequestResponse[]>([]);

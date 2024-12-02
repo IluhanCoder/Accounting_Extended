@@ -1,9 +1,10 @@
+import Hardware from "../hardware/hardware-types";
 import User, { UserResponse } from "../user/user-types";
 
 export interface modificationRequestResponse {
     _id: string
     requester: UserResponse,
-    type: string,
+    hardware: Hardware,
     reason: string,
     chars: string,
     crit: string,
@@ -13,8 +14,7 @@ export interface modificationRequestResponse {
 
 export interface modificationRequestCredentials {
     requester: string | undefined,
-    category: string,
-    type: string,
+    hardware: string | undefined,
     reason: string,
     chars: string,
     crit: string,
@@ -24,7 +24,7 @@ export interface modificationRequestCredentials {
 export interface serviceRequestResponse {
     _id: string,
     requester: UserResponse,
-    type: string,
+    hardware: Hardware,
     problem: string,
     crit: string,
     date: Date,
@@ -33,8 +33,7 @@ export interface serviceRequestResponse {
 
 export interface serviceRequestCredentials {
     requester: string | undefined,
-    category: string | undefined,
-    type: string,
+    hardware: string | undefined,
     problem: string,
     crit: string,
     admin: User | null
@@ -76,7 +75,7 @@ export interface hardwareRequestCredentials {
 
 export interface ModificationRequest{
     requester: string,
-    type: string,
+    hardware: string,
     reason: string,
     chars: string,
     crit: string,
@@ -86,7 +85,7 @@ export interface ModificationRequest{
 
 export interface ServiceRequest {
     requester: string,
-    type: string,
+    hardware: string,
     problem: string,
     crit: string,
     date: Date,

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export interface ModificationRequest{
     requester: mongoose.Types.ObjectId,
-    type: string,
+    hardware: mongoose.Types.ObjectId,
     reason: string,
     chars: string,
     crit: string,
@@ -12,7 +12,7 @@ export interface ModificationRequest{
 
 export interface ServiceRequest {
     requester: mongoose.Types.ObjectId,
-    type: string,
+    hardware: mongoose.Types.ObjectId,
     problem: string,
     crit: string,
     date: Date,

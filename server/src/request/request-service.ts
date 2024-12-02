@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { hardwareRequestModel, modificationRequestModel, serviceRequestModel } from "./request-models";
 import { HardwareRequest, ModificationRequest, ServiceRequest } from "./request-types";
+import hardwareModel from "../hardware/hardware-model";
 
 export default new class RequestService {
     async createModificationRequest(modificationRequest: ModificationRequest) {
@@ -126,15 +127,28 @@ export default new class RequestService {
             $unwind: "$adminDetails"
         },
         {
+            $lookup: {
+                from: "hardwares",
+                localField: "hardware",
+                foreignField: "_id",
+                as: "hardwareDetails"
+            }
+        },
+        {
+            $unwind: "$hardwareDetails"
+        },
+        {
             $addFields: {
                 requester: "$requesterDetails",
-                admin: "$adminDetails"
+                admin: "$adminDetails",
+                hardware: "$hardwareDetails"
             }
         },
         {
             $project: {
                 requesterDetails: 0,    // Remove the temporary fields used for lookup
-                adminDetails: 0
+                adminDetails: 0,
+                hardwareDetails: 0
             }
         }
 
@@ -164,11 +178,16 @@ export default new class RequestService {
         return requests;
     }
 
-    async deleteModificationRequest(id: string) {
-        await modificationRequestModel.findByIdAndDelete(id);
+    async deleteModificationRequest(id: string, text: string) {
+        const request: ModificationRequest = await modificationRequestModel.findByIdAndDelete(id);
+        await hardwareModel.findByIdAndUpdate(request.hardware, {modification: text});
+        await serviceRequestModel.findByIdAndDelete(id);
     }
 
-    async deleteServiceRequest(id: string) {
+    async deleteServiceRequest(id: string, text: string) {
+        const request: ServiceRequest = await serviceRequestModel.findById(id);
+        const newServiceData = { date: new Date, service: text }
+        await hardwareModel.findByIdAndUpdate(request.hardware, {$push: {service: newServiceData}});
         await serviceRequestModel.findByIdAndDelete(id);
     }
 }

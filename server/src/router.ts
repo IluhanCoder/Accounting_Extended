@@ -50,7 +50,7 @@ router.get("/hardware-request/:id", requestController.getHardwareRequestById);
 router.patch("/submit-hardware/:id", requestController.setSubmitedStatus);
 router.get("/ser-requests",requestController.getAdminSerRequests);
 router.get("/mod-requests", requestController.getAdminModRequests);
-router.delete("/service-request/:id", requestController.deleteServiceRequest);
-router.delete("/modification-request/:id", requestController.deleteModificationRequest);
+router.put("/service-request/:id", requestController.deleteServiceRequest);
+router.put("/modification-request/:id", requestController.deleteModificationRequest);
 
 export default router;

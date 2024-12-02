@@ -13,12 +13,16 @@ import OptionsMapper from "../selection/options-mapper";
 import { Categories } from "../hardware/hardware-types";
 import TYPE_OPTIONS from "../hardware/type-options";
 import DropForm from "../forms/drop-form";
+import { useParams } from "react-router-dom";
 
 function ModificationRequestPage() {
+    const {hardwareId} = useParams();
+
     const defaultType = ((TYPE_OPTIONS[Categories[0].value as keyof object])[0] as {value: string, label: string}).value;
 
     const defaultData = {
         requester: userStore?.user?._id,
+        hardware: hardwareId,
         type: defaultType,
         category: Categories[0].value,
         reason: "",
@@ -27,14 +31,6 @@ function ModificationRequestPage() {
         admin: null
     }
     const [formData, setFormData] = useState<modificationRequestCredentials>(defaultData);
-    const [typeOptions, setTypeOptions] = useState<{value: string, label: string}[]>(formData.category ? TYPE_OPTIONS[formData.category as keyof object] : []);
-
-    const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        const newValue = event.target.value;
-        const newOptions = TYPE_OPTIONS[newValue as keyof object];
-        setTypeOptions([...newOptions]);
-        setFormData({...formData, category: newValue, type: newOptions[0]});
-    }
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
@@ -75,16 +71,6 @@ function ModificationRequestPage() {
         <form id="form" onSubmit={handleSubmit} className={staticFormStyle}>
             <div className="flex justify-center py-3 text-2xl">
                 створення запиту на модифікацію обладнання
-            </div>
-            <div className="flex flex-col gap-2 px-10">
-                <select name="category" className={inputStyle} onChange={handleCategoryChange}>
-                    <OptionsMapper options={Categories}/>
-                </select>
-            </div>
-            <div className="flex flex-col gap-2 px-10">
-                <select name="type" className={inputStyle} onChange={handleChange}>
-                    <OptionsMapper options={typeOptions}/>
-                </select>
             </div>
             <div className="flex flex-col gap-2 px-10">
                 <input placeholder="причина модифікації" className={inputStyle} type="text" onChange={handleChange} name="reason"/>

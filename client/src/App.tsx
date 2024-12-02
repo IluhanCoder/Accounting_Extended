@@ -60,8 +60,8 @@ function App() {
                 <Route path="/search" element={<SearchPage/>}/>
                 <Route path='/personal-hardware' element={<AuthGates><SearchPage isPersonal/></AuthGates>}/>
                 <Route path='/retired' element={<AuthGates roles={["admin", "main"]}><RetiredPage/></AuthGates>}/>
-                <Route path='/new-modification-request' element={<AuthGates><ModificationRequestPage/></AuthGates>}/>
-                <Route path='/new-service-request' element={<AuthGates><ServiceRequestPage/></AuthGates>}/>
+                <Route path='/new-modification-request/:hardwareId' element={<AuthGates><ModificationRequestPage/></AuthGates>}/>
+                <Route path='/new-service-request/:hardwareId' element={<AuthGates><ServiceRequestPage/></AuthGates>}/>
                 <Route path='/new-hardware-request' element={<AuthGates><HardwareRequestPage/></AuthGates>}/>
                 <Route path='/main-requests' element={<AuthGates roles={["main"]}><MainRequestsPage/></AuthGates>}/>
                 <Route path='/submit-hardware-request/:hardwareRequestId' element={<AuthGates roles={["main"]}><SubmitHardwarePage/></AuthGates>}/>

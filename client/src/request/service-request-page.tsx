@@ -13,28 +13,20 @@ import { Categories } from "../hardware/hardware-types";
 import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
 import DropForm from "../forms/drop-form";
 import TYPE_OPTIONS from "../hardware/type-options";
+import { useParams } from "react-router-dom";
 
 function ServiceRequestPage() {
-    const defaultType = ((TYPE_OPTIONS[Categories[0].value as keyof object])[0] as {value: string, label: string}).value;
+    const {hardwareId} = useParams();
 
     const defaultData = {
         requester: userStore?.user?._id,
-        category: Categories[0].value,
-        type: defaultType,
+        hardware: hardwareId,
         problem: "",
         crit: "терміново",
         admin: null
     }
 
     const [formData, setFormData] = useState<serviceRequestCredentials>(defaultData);
-    const [typeOptions, setTypeOptions] = useState<{value: string, label: string}[]>(formData.category ? TYPE_OPTIONS[formData.category as keyof object] : []);
-
-    const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        const newValue = event.target.value;
-        const newOptions = TYPE_OPTIONS[newValue as keyof object];
-        setTypeOptions([...newOptions]);
-        setFormData({...formData, category: newValue, type: newOptions[0]});
-    }
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
@@ -73,16 +65,6 @@ function ServiceRequestPage() {
         <form id="form" onSubmit={handleSubmit} className={staticFormStyle + " px-10"}>
             <div className="flex justify-center py-3 text-2xl">
                 запит на обслуговування
-            </div>
-            <div className="flex flex-col gap-2">
-                <select name="type" className={selectStyle} onChange={handleCategoryChange}>
-                    <OptionsMapper options={Categories}/>
-                </select>
-            </div>
-            <div className="flex flex-col gap-2">
-                <select name="type" className={selectStyle} onChange={handleChange}>
-                    <OptionsMapper options={typeOptions}/>
-                </select>
             </div>
             <div className="flex flex-col gap-2">
                 <textarea placeholder="опис проблеми" className={inputStyle} onChange={handleChange} name="problem"/>

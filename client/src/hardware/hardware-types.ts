@@ -59,6 +59,7 @@ export interface HardwareResponse {
 }
 
 export interface HardwareFormData {
+    _id: string,
     category: string | undefined,
     type: {value: string, label: string} | undefined,
     serial: string,

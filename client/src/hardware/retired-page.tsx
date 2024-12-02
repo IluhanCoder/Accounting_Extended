@@ -5,6 +5,7 @@ import { submitButtonStyle } from "../styles/button-syles";
 import UtilizationCard from "./utilization-card";
 import SellCard from "./sell-card";
 import ModificationCard from "./modification-card";
+import { inputStyle } from "../styles/form-styles";
 
 function RetiredPage() {
     interface LocalState {
@@ -15,6 +16,7 @@ function RetiredPage() {
 
     const [data, setData] = useState<LocalState>();
     const [openInputs, setOpenInputs] = useState<boolean[]>([]);
+    const [selector, setSelector] = useState<string>("modernization");
 
     const getData = async () => {
         const modification = (await hardwareService.filterHardware([{$match: {modification: {$ne: null}}}])).hardware;
@@ -38,29 +40,29 @@ function RetiredPage() {
     }, [])
 
     return <div className="p-6 flex flex-col gap-4">
+        <div className="flex justify-center w-full">
+            <select value={selector} onChange={(e) => setSelector(e.target.value)} className={inputStyle}>
+                <option value="modernization">модернізація</option>
+                <option value="utilization">утилізація</option>
+                <option value="sell">продаж</option>
+            </select>
+        </div>
         <div className="flex flex-col gap-2">
-            <div className="text-xl">модернізація:</div>
-            <div className="flex flex-wrap gap-4">
+            {selector === "modernization" && <div className="flex flex-wrap gap-4">
                 {data && data?.modification?.length > 0 && data?.modification.map((hard: HardwareResponse) => {
                     return <ModificationCard callBack={() => getData()} hardwareData={hard}/>
-                }) || <div className="text-center p-6">запити відсутні</div>}
-            </div>
-        </div>
-        <div className="flex flex-col gap-2">
-            <div className="text-xl">утилізація:</div>
-            <div className="flex flex-wrap gap-4">
+                }) || <div className="flex justify-center p-20 w-full">запити відсутні</div>}
+            </div>}
+            {selector === "utilization" && <div className="flex flex-wrap gap-4">
                 {data && data.utilization.length>0 && data?.utilization.map((hard: HardwareResponse) => {
                     return <UtilizationCard callBack={() => getData()} hardwareData={hard}/>
-                }) || <div className="text-center p-6">запити відсутні</div>}
-            </div>
-        </div>
-        <div className="flex flex-col gap-2">
-            <div className="text-xl">на продаж:</div>
-            <div className="flex flex-wrap gap-4">
+                }) || <div className="flex justify-center p-20 w-full">запити відсутні</div>}
+            </div>}
+            {selector === "sell" && <div className="flex flex-wrap gap-4">
                 {data && data.sell.length > 0 && data?.sell.map((hard: HardwareResponse) => {
                     return <SellCard callBack={() => getData()} hardwareData={hard}/>
-                }) || <div className="text-center p-6">запити відсутні</div>}
-            </div>
+                }) || <div className="flex justify-center p-20 w-full">запити відсутні</div>}
+            </div>}
         </div>
     </div>
 }

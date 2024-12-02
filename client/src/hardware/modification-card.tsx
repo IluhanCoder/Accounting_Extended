@@ -5,6 +5,7 @@ import HardwareRecCard from "./hardware-rec-card";
 import hardwareService from "./hardware-service";
 import { inputStyle } from "../styles/form-styles";
 import { toast } from "react-toastify";
+import cardStyle from "../styles/card-styles";
 
 interface LocalParams {
     hardwareData: HardwareResponse,
@@ -26,7 +27,7 @@ function ModificationCard({hardwareData, callBack}: LocalParams) {
             модернізувати
         </button>
         {showInput && 
-            <div className="flex flex-col gap-2 border p-4 rounded">
+            <div className={cardStyle}>
                 <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xs">нові характеристики</label>
                     <input type="text" className={inputStyle} value={chars} onChange={(e) => setChars(e.target.value)}/>
