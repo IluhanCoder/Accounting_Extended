@@ -24,6 +24,7 @@ const serviceRequestSchema = new mongoose.Schema({
 export const serviceRequestModel = mongoose.model("ServiceRequest", serviceRequestSchema);
 
 const hardwareRequestSchema = new mongoose.Schema({
+    category: String,
     type: String,
     model: String,
     chars: String,

@@ -43,7 +43,7 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
 
     const convertedDefaultData: HardwareFormData | undefined = (hasIdProperty(defaultData)) ? ConvertHardwareResToHardwareForm(defaultData as HardwareResponse) : defaultData as HardwareFormData;
     const [formData, setFormData] = useState<HardwareFormData>(convertedDefaultData ?? {
-        category: "comp",
+        category: Categories[0].value,
         type: TYPE_OPTIONS["comp"][0],
         serial: "",
         model: "",
@@ -178,9 +178,9 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
     }
     
     return <div className={staticFormContainerStyle}>
-        <form className={staticFormStyle} onSubmit={handleSubmit}>
+        <form className={staticFormStyle + " w-3/5"} onSubmit={handleSubmit}>
                 <div className="flex justify-center">
-                    <h1 className="text-2xl">додавання обладнання</h1>  
+                    <h1 className="text-2xl">додання обладнання</h1>  
                 </div>
                     <div className="flex gap-4 justify-center">
                         <select className={selectStyle + " w-full"} disabled={!edit}  name="category" defaultValue={formData.category} onChange={handleCategoryChange}>

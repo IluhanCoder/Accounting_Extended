@@ -33,6 +33,7 @@ export interface serviceRequestResponse {
 
 export interface serviceRequestCredentials {
     requester: string | undefined,
+    category: string | undefined,
     type: string,
     problem: string,
     crit: string,
@@ -41,6 +42,7 @@ export interface serviceRequestCredentials {
 
 export interface hardwareRequestResponse {
     _id: string,
+    category: string,
     type: string,
     model: string,
     chars: string,
@@ -58,6 +60,7 @@ export interface hardwareRequestResponse {
 }
 
 export interface hardwareRequestCredentials {
+    category: string,
     type: string,
     model: string,
     chars: string,
@@ -91,6 +94,7 @@ export interface ServiceRequest {
 }
 
 export interface HardwareRequest{
+    category: string,
     type: string,
     model: string,
     chars: string,

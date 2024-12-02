@@ -36,7 +36,7 @@ function SubmitHardwarePage () {
     const getDefaultData = () => {
         if(request)
             setDefaultData({
-                category: "comp",
+                category: request.category,
                 type: TYPE_OPTIONS["comp"][0],
                 serial: "",
                 model: (request?.model) ? request?.model : "",

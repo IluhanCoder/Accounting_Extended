@@ -15,9 +15,11 @@ import TYPE_OPTIONS from "../hardware/type-options";
 import DropForm from "../forms/drop-form";
 
 function ModificationRequestPage() {
+    const defaultType = ((TYPE_OPTIONS[Categories[0].value as keyof object])[0] as {value: string, label: string}).value;
+
     const defaultData = {
         requester: userStore?.user?._id,
-        type: "",
+        type: defaultType,
         category: Categories[0].value,
         reason: "",
         chars: "",

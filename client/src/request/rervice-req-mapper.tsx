@@ -28,7 +28,7 @@ function ServiceRequestMapper({ requests, callBack, className }: LocalParams) {
         </div>
         <div className="flex flex-col">
             <label>Опис проблеми:</label>
-            <label>{serviceRequest.type}</label>
+            <label>{serviceRequest.problem}</label>
         </div>
         <div className="flex flex-col">
             <label>Критичність:</label>

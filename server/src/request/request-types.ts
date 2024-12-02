@@ -20,6 +20,7 @@ export interface ServiceRequest {
 }
 
 export interface HardwareRequest{
+    category: string,
     type: string,
     model: string,
     chars: string,

@@ -13,12 +13,15 @@ import { Categories } from "../hardware/hardware-types";
 import OptionsMapper from "../selection/options-mapper";
 import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
 import DropForm from "../forms/drop-form";
+import TYPE_OPTIONS from "../hardware/type-options";
 
 function HardwareRequestPage() {
     const [rentSwitch, setRentSwitch] = useState<boolean>(false);
+    const defaultType = ((TYPE_OPTIONS[Categories[0].value as keyof object])[0] as {value: string, label: string}).value;
 
     const defaultData = {
-        type: "",
+        category: Categories[0].value,
+        type: defaultType,
         model: "",
         chars: "",
         purpose: "",
@@ -26,10 +29,17 @@ function HardwareRequestPage() {
         user: null,
         crit: "терміново",
         requestTo: undefined
-
     };
 
     const [formData, setFormData] = useState<hardwareRequestCredentials>(defaultData);
+    const [typeOptions, setTypeOptions] = useState<{value: string, label: string}[]>(formData.category ? TYPE_OPTIONS[formData.category as keyof object] : []);
+
+    const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        const newValue = event.target.value;
+        const newOptions = TYPE_OPTIONS[newValue as keyof object];
+        setTypeOptions([...newOptions]);
+        setFormData({...formData, category: newValue, type: newOptions[0]});
+    }
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
@@ -81,7 +91,6 @@ function HardwareRequestPage() {
         } else {
             setFormData({...formData, rent: null});
         }
-        
     }
 
     const handleDateChange = (newValue: {startDate: Date, endDate: Date}) => {
@@ -94,8 +103,13 @@ function HardwareRequestPage() {
                 створення запиту на обладнання
             </div>
             <div className="flex w-full gap-2 px-10">
-                <select className={selectStyle + " w-full"} name="type" onChange={handleChange}>
+                <select className={selectStyle + " w-full"} name="category" onChange={handleCategoryChange}>
                     <OptionsMapper options={Categories} />
+                </select>
+            </div>
+            <div className="flex w-full gap-2 px-10">
+                <select className={selectStyle + " w-full"} name="type" onChange={handleChange}>
+                    <OptionsMapper options={typeOptions}/>
                 </select>
             </div>
             <div className="flex w-full gap-2 px-10">

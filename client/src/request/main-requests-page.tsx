@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import DateFormater from "../misc/date-formatter";
 import { toast } from "react-toastify";
 import html2PDF from "jspdf-html2canvas";
+import cardStyle from "../styles/card-styles";
 
 function MainRequestsPage() {
     const [requests, setRequests] = useState<hardwareRequestResponse[]>([]);
@@ -24,6 +25,7 @@ function MainRequestsPage() {
 
     const handleDelete = async (hardwareResponse: hardwareRequestResponse) => {
         await requestService.deleteHardwareRequests(hardwareResponse._id);
+        getData();
     }
 
     const generatePdf = async () => {
@@ -46,10 +48,10 @@ function MainRequestsPage() {
         getData();
     }, []);
 
-    return <div className="flex flex-col p-6 gap-2">
+    if( requests.length > 0)return <div className="flex flex-col p-6 gap-2">
         <div className="flex p-6 flex-wrap gap-4" id="results">
             {requests.map((request: hardwareRequestResponse) => {
-                return <div className="flex flex-col gap-2 p-4 border rounded">
+                return <div className={cardStyle}>
                     <div className="flex gap-1">
                         <label>запит від:</label>
                         <label>{request.admin.nickname}</label>
@@ -97,6 +99,11 @@ function MainRequestsPage() {
         </div>
         <div className="flex justify-center p-2">
                 <button className={lightButtonStyle} type="button" onClick={generatePdf}>Завантажити звіт</button>
+        </div>
+    </div>
+    else return <div className="w-full flex flex-col h-full justify-center">
+        <div className="flex justify-center">
+            запити відсутні
         </div>
     </div>
 }
