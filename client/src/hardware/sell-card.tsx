@@ -21,7 +21,7 @@ function SellCard ({hardwareData, callBack}: LocalParams) {
         window.location.reload();
     }
 
-    const bottomDiv = <>
+    const bottomDiv = <div className="flex flex-col gap-2">
         <button type="button" className={submitButtonStyle} onClick={() => setShowInput(!showInput)}>продати</button>
         {showInput && 
             <div className="flex flex-col gap-2 border p-4 rounded mt-2">
@@ -31,7 +31,7 @@ function SellCard ({hardwareData, callBack}: LocalParams) {
                 </div>
                 <button className={submitButtonStyle} onClick={handleSubmit}>затвердити</button>
             </div>}
-    </>
+    </div>
 
     return <HardwareRecCard bottomDiv={bottomDiv} hardwareData={hardwareData}/>
 }

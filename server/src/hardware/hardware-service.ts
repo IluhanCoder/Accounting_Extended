@@ -70,6 +70,7 @@ const lookupQuery = [
       year: 1,
       exp_start: 1,
       chars: 1,
+      power: 1,
       departament: '$departamentDetails',
       user: '$userDetails',
       service: 1,

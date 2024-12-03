@@ -14,6 +14,7 @@ export default interface Hardware {
     type: string,
     serial: string,
     model: string,
+    power: number,
     year: number,
     exp_start: Date,
     chars: string,
@@ -41,6 +42,7 @@ export interface HardwareResponse {
     type: string,
     serial: string,
     model: string,
+    power: number,
     year: number,
     exp_start: Date,
     chars: string,
@@ -59,11 +61,12 @@ export interface HardwareResponse {
 }
 
 export interface HardwareFormData {
-    _id: string,
+    _id?: string,
     category: string | undefined,
     type: {value: string, label: string} | undefined,
     serial: string,
     model: string,
+    power: number,
     year: number,
     exp_start: Date,
     chars: string,

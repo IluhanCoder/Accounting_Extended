@@ -15,8 +15,12 @@ export default function ModificationRequestCard ({modificationRequest, handleSub
 
     return <div className={cardStyle}>
     <div className="flex gap-1">
-        <label className="text-xs text-gray-700 font-semibold">Запит від:</label>
+        <label className="text-xs text-gray-700 font-semibold mt-1">Запит від:</label>
         <label>{modificationRequest.requester.nickname}</label>
+    </div>
+    <div className="flex gap-1">
+        <label className="text-xs font-semibold text-gray-700 mt-1">Обладнання:</label>
+        <label>{modificationRequest.hardware.model}</label>
     </div>
     <div className="flex gap-1">
         <label className="text-xs font-semibold text-gray-700 mt-1">Причина:</label>

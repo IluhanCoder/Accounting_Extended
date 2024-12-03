@@ -13,6 +13,7 @@ export default interface Hardware {
     chars: string,
     departament: mongoose.Types.ObjectId,
     user: mongoose.Types.ObjectId,
+    power: number,
     service: {
         date: Date,
         service: String
@@ -40,6 +41,7 @@ export interface HardwareResponse {
     service: Service[],
     nextService: Date,
     admin: UserResponse,
+    power: number,
     modification: string,
     utilization?: {
         date: Date,

@@ -8,6 +8,7 @@ const hardwareSchema = new mongoose.Schema({
     year: String,
     exp_start: Date,
     chars: String,
+    power: Number,
     departament: mongoose.Types.ObjectId,
     user: mongoose.Types.ObjectId || undefined,
     service: [{

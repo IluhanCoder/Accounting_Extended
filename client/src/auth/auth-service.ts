@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 export default new class AuthService {
     async registrate(credentials: RegCredantials) {
         try {
-            console.log(credentials);
             const res = await $api.post("/registration", credentials);
             return res.data;
         } catch (error: any) {

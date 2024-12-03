@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { SelledHardwareResponse } from "./hardware-types";
 import hardwareService from "./hardware-service";
 import DateFormater from "../misc/date-formatter";
+import cardStyle from "../styles/card-styles";
 
 function SelledHardwarePage() {
     const [hardware, setHardware] = useState<SelledHardwareResponse[]>();
@@ -19,7 +20,7 @@ function SelledHardwarePage() {
         <div className="text-center text-2xl">продане обладнання</div>
         <div className="flex flex-wrap gap-2">
             {hardware?.map((hard: SelledHardwareResponse) => 
-                <div className="flex flex-col border rounded py-4 px-8 gap-2">
+                <div className={cardStyle}>
                     <div className="flex gap-2">
                         <label>Тип:</label>
                         <label>{hard.hardware.type}</label>

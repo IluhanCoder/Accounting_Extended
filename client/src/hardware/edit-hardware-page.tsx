@@ -13,8 +13,6 @@ import { toast } from "react-toastify";
 function EditHardwarePage() {
     const edit = userStore.user?.edit || userStore.user?.role === "admin" || userStore.user?.role === "main";
 
-    
-
     const {id} = useParams<{id: string}>();
     const [defaultData, setDefaultData] = useState<HardwareResponse>();
     const [instruction, setInstruction] = useState<File | null>(null);
@@ -67,7 +65,7 @@ function EditHardwarePage() {
     }
 
     if(defaultData) return <div>
-        <HardwareForm showRecomendations buttonLabel={"внести зміни"} onSubmit={handleSubmit} defaultData={defaultData}/>
+        <HardwareForm showRequestButtons showRecomendations buttonLabel={"внести зміни"} onSubmit={handleSubmit} defaultData={defaultData}/>
         {edit && <div className="flex justify-center">
             <div className="flex flex-col mt-4">
                     <div>

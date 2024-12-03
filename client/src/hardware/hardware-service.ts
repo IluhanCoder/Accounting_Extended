@@ -7,7 +7,7 @@ export default new class HardwareService {
     checkEmptyStrings(hardware: Hardware | IpHardware) {
         for(const key in hardware) {
             const field = hardware[key as keyof (Hardware | IpHardware)];
-            if(typeof field === "string" && field.length === 0) throw HardwareFormError.HasEmptyStrings();
+            if(key !== "modification" && key !== "_id" && typeof field === "string" && field.length === 0) throw HardwareFormError.HasEmptyStrings();
         }
     }
 

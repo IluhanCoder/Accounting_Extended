@@ -1,7 +1,8 @@
 const TYPE_OPTIONS = {
     "comp": [
         { value: "ноутбук", label: "ноутбук" },
-        { value: "пк", label: "пк" }
+        { value: "пк", label: "пк" },
+        { value: "інше", label: "інше" }
     ],
     "net": [
         { value: "маршрутизатор", label: "маршрутизатор" },

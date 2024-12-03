@@ -18,6 +18,10 @@ export default function ServiceRequestCard ({serviceRequest, handleSubmit}: Loca
             <label className="text-xs font-semibold text-gray-700 mt-1">Запит від:</label>
             <label>{serviceRequest.requester.nickname}</label>
         </div>
+        <div className="flex gap-1">
+            <label className="text-xs font-semibold text-gray-700 mt-1">Обладнання:</label>
+            <label>{serviceRequest.hardware.model}</label>
+        </div>
         <div className="flex flex-col">
             <label className="text-xs font-semibold text-gray-700 mt-1">Опис проблеми:</label>
             <label>{serviceRequest.problem}</label>

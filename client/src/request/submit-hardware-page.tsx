@@ -42,6 +42,7 @@ function SubmitHardwarePage () {
                 serial: "",
                 model: (request?.model) ? request?.model : "",
                 year: 2024,
+                power: 0,
                 exp_start: new Date(),
                 chars: (request?.chars) ? request?.chars : "",
                 departament: undefined,

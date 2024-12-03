@@ -26,10 +26,11 @@ interface LocalParams {
     onSubmit: (formData: HardwareFormData) => Promise<void>,
     defaultData?: HardwareResponse | HardwareFormData,
     buttonLabel: string,
-    showRecomendations?: boolean 
+    showRecomendations?: boolean,
+    showRequestButtons?: boolean
 }
 
-function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: LocalParams) {
+function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations, showRequestButtons}: LocalParams) {
     const edit = userStore.user?.edit && defaultData?.user?._id === userStore.user._id || userStore.user?.role === "admin" || userStore.user?.role === "main";
     const deepEdit = userStore.user?._id === defaultData?.admin?._id;
 
@@ -41,15 +42,15 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
 
     const validateData = (): boolean => {
         return !Object.entries(formData)
-        .some(([key, value]) => key !== 'modernization' && (value === undefined || value === null));
+        .some(([key, value]) => key !== 'modification' && (value === undefined || value === null));
     }
 
     const convertedDefaultData: HardwareFormData | undefined = (hasIdProperty(defaultData)) ? ConvertHardwareResToHardwareForm(defaultData as HardwareResponse) : defaultData as HardwareFormData;
     const [formData, setFormData] = useState<HardwareFormData>(convertedDefaultData ?? {
-        _id: "",
         category: Categories[0].value,
         type: TYPE_OPTIONS["comp"][0],
         serial: "",
+        power: 0,
         model: "",
         year: 2024,
         exp_start: new Date(),
@@ -87,7 +88,7 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
         try {
             event.preventDefault();
             if(validateData()) await onSubmit(formData);
-            else console.log(Object.values(formData).some((value) => {console.log(value); console.log(value === undefined || value === null); return value === undefined || value === null}));
+            else toast.error("усі поля повинні мати значення");
         } catch (error: any | HardwareFormError) {
             if(error instanceof HardwareFormError) toast.error(error.message);
         }
@@ -219,9 +220,13 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                     </div>
                 <div className="flex flex-col gap-2">
                     <textarea placeholder="характеристики" disabled={!edit}  defaultValue={formData.chars} className={inputStyle} onChange={handleChange} name="chars"/>
-                    <div className="flex justify-center py-2">
+                    {showRequestButtons && <div className="flex justify-center py-2">
                         <button type="button" className={grayButtonStyle + " text-xs"} onClick={handleCreateModificationRequest}>створити заявку на модифікацію</button>
-                    </div>
+                    </div>}
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label className="font-bold text-gray-600 text-xs">споживання кВт</label>
+                    <input placeholder="споживання кВт" disabled={!edit}  type="number" defaultValue={formData.power} className={inputStyle} onChange={handleChange} name="power"/>
                 </div>
                 {
                     (formData.category === "net" || "per") && 
@@ -265,9 +270,9 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations}: 
                         </div>)}</div>
                     </div>
                     <div className="flex justify-center p-2">
-                        <button onClick={handleCreateServRequest} className={grayButtonStyle + " text-xs"}>
+                        {showRequestButtons && <button onClick={handleCreateServRequest} className={grayButtonStyle + " text-xs"}>
                             створити запит на обслуговування
-                        </button>
+                        </button>}
                     </div>
                 </div>
                 <div className="flex flex-col gap-2">
