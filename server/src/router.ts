@@ -5,6 +5,7 @@ import userController from "./user/user-controller";
 import multer from "multer";
 import requestController from "./request/request-controller";
 import analyticsController from "./analytics/analytics-controller";
+import softwareController from "./software/software-controller";
 const router = Router();
 
 const storageEngine = multer.diskStorage({
@@ -60,5 +61,10 @@ router.put("/modification-request/:id", requestController.deleteModificationRequ
 
 //analytics
 router.post("/power-statistics", analyticsController.calculatePower);
+
+//software
+router.post("/software", softwareController.createNewSoftware);
+router.get("/software", softwareController.fetchSoftware);
+router.get("/software/:hardwareId", softwareController.getHardwareSoftware);
 
 export default router;

@@ -116,6 +116,7 @@ export default new class HardwareService {
     }
 
     async filterHardware(query: any[]): Promise<HardwareResponse[]> {
+      console.log(query);
       let match = query[0].$match;
       if(match?.user) match = {...match, user: new mongoose.Types.ObjectId(match.user as string)};
       if(match?.admin) match = {...match, admin: new mongoose.Types.ObjectId(match.admin as string)};

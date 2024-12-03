@@ -30,6 +30,7 @@ import Menu from './menu';
 import FormCloserProvider from './forms/form-closer-provider';
 import formStore from './forms/form-store';
 import PowerPage from './analytics/power-page';
+import NewSoftwarePage from './software/new-software-page';
 registerLocale('ua', uk)
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
                 <Route path="/admin-requests" element={<AuthGates roles={["admin"]}><AdminRequestPage/></AuthGates>}/>
                 <Route path='/sell' element={<AuthGates roles={["admin", "main"]}><SelledHardwarePage/></AuthGates>}/>
                 <Route path='/power' element={<AuthGates><PowerPage/></AuthGates>}/>
+                <Route path='/new-software' element={<AuthGates><NewSoftwarePage/></AuthGates>}/>
               </Routes>
             </div>
           </div>
