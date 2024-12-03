@@ -39,7 +39,6 @@ function EditHardwarePage() {
             toast("обробка запиту...");
             await hardwareService.uploadInstruction(defaultData?._id, e.target.files[0]);
             toast.success("інструкцію було успіщно завантажено");
-            console.log()
         }
     }
 

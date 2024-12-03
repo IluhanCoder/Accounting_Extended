@@ -30,6 +30,10 @@ router.post("/sell/:id", hardwareController.sell)
 router.delete("/hardware/:id", hardwareController.deleteById);
 router.get("/selled-hardware", hardwareController.getSelledHardware);
 
+//types
+router.post("/type", hardwareController.createNewType);
+router.get("/types/:category", hardwareController.getTypes);
+
 //instructions
 router.post("/instruction/:hardwareId", upload.single("instruction"), hardwareController.uploadInstruciton);
 router.get("/instruction/:hardwareId", hardwareController.downloadInstruction);

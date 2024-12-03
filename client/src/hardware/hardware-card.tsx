@@ -8,8 +8,6 @@ interface LocalParams {
 }
 
 function HardwareCard({ hardwareData }: LocalParams) {
-    console.log(hardwareData);
-
     return <div className={cardStyle}>
         <div className="flex flex-col gap-1 justify-center h-full pb-4">
             <div className="flex justify-center text-xl py-1">

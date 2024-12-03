@@ -9,4 +9,8 @@ export default class HardwareError extends Error {
     static NoInstruction() {
         return new HardwareError("Інструкцій для цього обладнання не було знайдено", 400);
     }
+
+    static TypeExists() {
+        return new HardwareError("Такий тип обладнання вже існує", 400);
+    }
 }

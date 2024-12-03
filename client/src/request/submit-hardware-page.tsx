@@ -38,7 +38,7 @@ function SubmitHardwarePage () {
             setDefaultData({
                 _id: "",
                 category: request.category,
-                type: TYPE_OPTIONS["comp"][0],
+                type: TYPE_OPTIONS["comp"][0].value,
                 serial: "",
                 model: (request?.model) ? request?.model : "",
                 year: 2024,

@@ -63,7 +63,7 @@ export interface HardwareResponse {
 export interface HardwareFormData {
     _id?: string,
     category: string | undefined,
-    type: {value: string, label: string} | undefined,
+    type: string,
     serial: string,
     model: string,
     power: number,
@@ -99,7 +99,7 @@ export function ConvertHardwareFormToHardware(hardwareFormData: HardwareFormData
 
     const newHardware: Hardware = {
         ...hardwareFormData,
-        type: hardwareFormData.type?.value!,
+        type: hardwareFormData.type!,
         category: hardwareFormData.category!,
         departament: hardwareFormData.departament?._id!,
         user: hardwareFormData.user?._id!,
@@ -125,7 +125,7 @@ export function ConvertHardwareResToHardwareForm(hardwareData: HardwareResponse 
                 sell: hardwareData.utilization?.sell!,
             },
             modification: hardwareData.modification,
-            type: {value: hardwareData.type, label: hardwareData.type}
+            type: hardwareData.type
         }
     else return undefined;
 }

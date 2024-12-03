@@ -191,4 +191,42 @@ export default new class HardwareController {
             console.log(error);
         }
     }
+
+    async createNewType(req: Request, res: Response) {
+        try {
+            const {name, category} = req.body;
+            await hardwareService.createNewType(name, category);
+            res.status(200).json({
+                status: "success"
+            })
+        } catch (error) {
+            if (error instanceof HardwareError) res.status(error.status).json({
+                message: error.message,
+                status: "bad request"
+            }) 
+            else {
+                res.status(error.status ?? 500).json({
+                    status: "internal server error"
+                })
+                console.log(error);
+            }
+        }
+    }
+
+    async getTypes(req: Request, res: Response) {
+        try {
+            const {category} = req.params;
+            const types = await hardwareService.getTypes(category);
+            res.status(200).json({
+                status: "success",
+                types
+            })
+        } catch (error) {
+            res.json({
+                status: "fail",
+                message: "internal server error"
+            }).status(500)
+            console.log(error);
+        }
+    }
 }

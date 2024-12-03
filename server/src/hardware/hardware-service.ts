@@ -3,6 +3,9 @@ import hardwareModel, { selledModel } from "./hardware-model";
 import Hardware, { HardwareResponse, IpHardware } from "./hardware-types";
 import instructionModel from "./instruction-model";
 import { modificationRequestModel, serviceRequestModel } from "../request/request-models";
+import typeModel from "./type-model";
+import TYPE_OPTIONS from "./type-options";
+import HardwareError from "./hardware-errors";
 
 const lookupQuery = [
   {
@@ -161,5 +164,22 @@ export default new class HardwareService {
 
     async getSelledHardware() {
       return await selledModel.find();
+    }
+
+    async createNewType(name: string, category: string) {
+      let otherNames: string[] = [];
+      Object.keys(TYPE_OPTIONS).map((category: string) => {
+        (TYPE_OPTIONS[category] as {value: string, label: string}[]).map((type: {value: string, label: string}) => {
+          otherNames = [...otherNames, type.label];
+        });
+      })
+      const customTypes: string[] = (await typeModel.find()).map((type) => type.type.label);
+      otherNames = [...otherNames, ...customTypes];
+      if(otherNames.includes(name)) throw HardwareError.TypeExists();
+      await typeModel.create({type: {label: name, value: name}, category});
+    }
+
+    async getTypes(category: string) {
+      return await typeModel.find({category});
     }
 }

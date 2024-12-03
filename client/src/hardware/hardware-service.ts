@@ -61,4 +61,12 @@ export default new class HardwareService {
     async getSelledHardware(): Promise<{status: string, hardware: SelledHardwareResponse[]}> {
         return (await $api.get("/selled-hardware")).data;
     }
+
+    async createNewType(name: string, category: string): Promise<{status: string}> {
+        return await $api.post("/type", {name, category});
+    }
+
+    async getTypes(category: string): Promise<{status: string, types: {type: {value: string, label: string}, category: string}[]}> {
+        return (await $api.get(`/types/${category}`)).data;
+    }
 }

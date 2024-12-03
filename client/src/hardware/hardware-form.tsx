@@ -21,6 +21,7 @@ import OptionsMapper from "../selection/options-mapper";
 import DepartamnetPicker from "../departament/departament-picker";
 import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
 import UserPicker from "../user/user-picker";
+import CategoryAndTypeSelector from "./category-type-selector";
 
 interface LocalParams {
     onSubmit: (formData: HardwareFormData) => Promise<void>,
@@ -46,10 +47,14 @@ function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, sho
         .some(([key, value]) => key !== 'modification' && (value === undefined || value === null));
     }
 
+    const onCategoryChange = (newType: string) => {
+        setFormData({...formData, type: newType});
+    }
+
     const convertedDefaultData: HardwareFormData | undefined = (hasIdProperty(defaultData)) ? ConvertHardwareResToHardwareForm(defaultData as HardwareResponse) : defaultData as HardwareFormData;
     const [formData, setFormData] = useState<HardwareFormData>(convertedDefaultData ?? {
         category: Categories[0].value,
-        type: TYPE_OPTIONS["comp"][0],
+        type: TYPE_OPTIONS["comp"][0].value,
         serial: "",
         power: 0,
         model: "",
@@ -69,7 +74,6 @@ function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, sho
         },
         ip: []
     });
-    const [typeOptions, setTypeOptions] = useState<{value: string, label: string}[]>(formData.category ? TYPE_OPTIONS[formData.category as keyof object] : []);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormData({
@@ -141,12 +145,7 @@ function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, sho
         else toast.error("ви маєте обрати відповідального за списання");
     }
     
-    const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        const newValue = event.target.value;
-        const newOptions = TYPE_OPTIONS[newValue as keyof object];
-        setTypeOptions([...newOptions]);
-        setFormData({...formData, category: newValue, type: newOptions[0]});
-    }
+    
 
     const handleCreateModificationRequest = () => {
         navigate(`/new-modification-request/${defaultData?._id}`);
@@ -207,16 +206,7 @@ function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, sho
                     {showDeleteButton && deepEdit && <div className="absolute right-0 top-0 p-4">
                         <button type="button" className={redButtonSyle} onClick={handleDelete}>видалити обладнання</button>
                     </div>}
-                    <div className="flex gap-4 justify-center">
-                        <select className={selectStyle + " w-full"} disabled={!edit}  name="category" defaultValue={formData.category} onChange={handleCategoryChange}>
-                            <OptionsMapper options={Categories}/>
-                        </select>
-                    </div>
-                    <div className="flex gap-4 justify-center">
-                        <select className={selectStyle + " w-full"} disabled={!edit}  defaultValue={formData.type?.value} name="type" onChange={handleChange}>
-                            <OptionsMapper options={typeOptions}/>
-                        </select>
-                    </div>
+                    <CategoryAndTypeSelector onCategoryChange={onCategoryChange} defaultType={formData.type} defaultCategory={formData.category!} handleChange={handleChange} edit={edit}/>
                     <div className="flex flex-col gap-2">
                         <input placeholder="серійний номер" disabled={!edit} defaultValue={formData.serial} className={inputStyle} type="text" onChange={handleChange} name="serial"/>
                     </div>
