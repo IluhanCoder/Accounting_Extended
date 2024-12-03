@@ -24,7 +24,7 @@ function RegistationPage() {
         lastname: "",
         admin: undefined,
         departament: undefined,
-        workTime: "",
+        workTime: 40,
         password: "",
         pswSubmit: ""
     }
@@ -100,7 +100,7 @@ function RegistationPage() {
                         <input placeholder="по-батькові" className={inputStyle} type="text" name="lastname" onChange={handleChange} />
                     </div>
                     <div className="flex flex-col gap-1">
-                        <input placeholder="робочий час" className={inputStyle} type="text" name="workTime" onChange={handleChange} />
+                        <input placeholder="робочий час (к-сть годин на тиждень)" className={inputStyle} type="number" name="workTime" onChange={handleChange} />
                     </div>
                     {formData.role === "user" && <div className="flex justify-center gap-1 p-2 ">
                         <UserPicker className={horizontalSelectionPlateStyle} closeAfterSubmit label="відповідальний адміністратор" onChange={handleAdminChange} role="admin" self />

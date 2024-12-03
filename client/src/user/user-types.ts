@@ -9,7 +9,7 @@ type User = {
     surname: string,
     lastname: string,
     admin?: string,
-    workTime: string,
+    workTime: number,
     isActive: boolean,
     edit: boolean,
     password: string
@@ -26,7 +26,7 @@ export interface UserResponse {
     lastname: string,
     departament: DepartamentResponse,
     admin?: User,
-    workTime: string,
+    workTime: number,
     edit: boolean,
     isActive: boolean
 }

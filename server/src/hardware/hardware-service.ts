@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import hardwareModel, { selledModel } from "./hardware-model";
 import Hardware, { HardwareResponse, IpHardware } from "./hardware-types";
 import instructionModel from "./instruction-model";
+import { modificationRequestModel, serviceRequestModel } from "../request/request-models";
 
 const lookupQuery = [
   {
@@ -140,6 +141,16 @@ export default new class HardwareService {
 
     async deleteById(hardwareId: string) {
       await hardwareModel.findByIdAndDelete(hardwareId);
+
+      const convertedId = new mongoose.Types.ObjectId(hardwareId);
+      const modificationRequests = await modificationRequestModel.find({hardware: convertedId});
+      modificationRequests.map(async (request) => {
+        await modificationRequestModel.findByIdAndDelete(request._id);
+      })
+      const serviceRequests = await serviceRequestModel.find({hardware: convertedId});
+      serviceRequests.map(async (request) => {
+        await serviceRequestModel.findByIdAndDelete(request._id);
+      })
     }
 
     async sell(hardwareId: string, comment: string) {

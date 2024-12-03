@@ -27,12 +27,13 @@ interface LocalParams {
     defaultData?: HardwareResponse | HardwareFormData,
     buttonLabel: string,
     showRecomendations?: boolean,
-    showRequestButtons?: boolean
+    showRequestButtons?: boolean,
+    showDeleteButton?: boolean
 }
 
-function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations, showRequestButtons}: LocalParams) {
+function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, showRecomendations, showRequestButtons}: LocalParams) {
     const edit = userStore.user?.edit && defaultData?.user?._id === userStore.user._id || userStore.user?.role === "admin" || userStore.user?.role === "main";
-    const deepEdit = userStore.user?._id === defaultData?.admin?._id;
+    const deepEdit = userStore.user?.role === "main" || userStore.user?._id === defaultData?.admin?._id;
 
     const navigate = useNavigate();
 
@@ -189,12 +190,23 @@ function HardwareForm({onSubmit, defaultData, buttonLabel, showRecomendations, s
         }
         setFormData({...formData, utilization: {...formData.utilization, sell: !formData.utilization.sell}});
     }
+
+    const handleDelete = async () => {
+        if(formData._id) {
+            await hardwareService.deleteById(formData._id);
+            navigate("/search");
+            toast.success("обладнання було успішно видалено");
+        }
+    }
     
     return <div className={staticFormContainerStyle}>
-        <form className={staticFormStyle + " w-3/5"} onSubmit={handleSubmit}>
+        <form className={staticFormStyle + " w-3/5 relative"} onSubmit={handleSubmit}>
                 <div className="flex justify-center">
                     {edit ? <h1 className="text-2xl">редагування обладнання</h1> : <h1 className="text-2xl">додання обладнання</h1>}
                 </div>
+                    {showDeleteButton && deepEdit && <div className="absolute right-0 top-0 p-4">
+                        <button type="button" className={redButtonSyle} onClick={handleDelete}>видалити обладнання</button>
+                    </div>}
                     <div className="flex gap-4 justify-center">
                         <select className={selectStyle + " w-full"} disabled={!edit}  name="category" defaultValue={formData.category} onChange={handleCategoryChange}>
                             <OptionsMapper options={Categories}/>

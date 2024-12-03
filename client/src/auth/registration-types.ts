@@ -9,7 +9,7 @@ type RegCredantials = {
     surname: string,
     lastname: string,
     admin?: User,
-    workTime: string,
+    workTime: number,
     departament?: DepartamentResponse,
     password: string,
     pswSubmit?: string

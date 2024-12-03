@@ -65,7 +65,7 @@ function EditHardwarePage() {
     }
 
     if(defaultData) return <div>
-        <HardwareForm showRequestButtons showRecomendations buttonLabel={"внести зміни"} onSubmit={handleSubmit} defaultData={defaultData}/>
+        <HardwareForm showDeleteButton showRequestButtons showRecomendations buttonLabel={"внести зміни"} onSubmit={handleSubmit} defaultData={defaultData}/>
         {edit && <div className="flex justify-center">
             <div className="flex flex-col mt-4">
                     <div>

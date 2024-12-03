@@ -8,7 +8,7 @@ export type RegCredantials = {
     surname: string,
     lastname: string,
     admin: string,
-    workTime: string,
+    workTime: number,
     departament: string,
     password: string
 }

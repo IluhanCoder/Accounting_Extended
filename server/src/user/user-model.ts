@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
       required: false
     },
     workTime: {
-      type: String
+      type: Number
     },
     isActive: {
       type: Boolean,

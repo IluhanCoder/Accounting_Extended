@@ -4,6 +4,8 @@ import instructionModel from "./instruction-model";
 import mongoose from "mongoose";
 import { Instruction } from "./hardware-types";
 import HardwareError from "./hardware-errors";
+import { modificationRequestModel, serviceRequestModel } from "../request/request-models";
+import { ModificationRequest, ServiceRequest } from "../request/request-types";
 
 export default new class HardwareController {
     async createHardware(req: Request, res: Response) {

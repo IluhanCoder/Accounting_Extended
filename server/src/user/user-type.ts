@@ -8,7 +8,7 @@ type User = {
     surname: string,
     lastname: string,
     admin?: mongoose.Types.ObjectId,
-    workTime: string,
+    workTime: number,
     isActive: boolean,
     edit: boolean,
     password: string
@@ -24,7 +24,7 @@ export interface UserResponse {
     surname: string,
     lastname: string,
     admin?: mongoose.Types.ObjectId,
-    workTime: string,
+    workTime: number,
     edit: boolean,
     isActive: boolean,
 }
