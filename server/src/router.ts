@@ -4,6 +4,7 @@ import departamentController from "./departament/departament-controller";
 import userController from "./user/user-controller";
 import multer from "multer";
 import requestController from "./request/request-controller";
+import analyticsController from "./analytics/analytics-controller";
 const router = Router();
 
 const storageEngine = multer.diskStorage({
@@ -52,5 +53,8 @@ router.get("/ser-requests",requestController.getAdminSerRequests);
 router.get("/mod-requests", requestController.getAdminModRequests);
 router.put("/service-request/:id", requestController.deleteServiceRequest);
 router.put("/modification-request/:id", requestController.deleteModificationRequest);
+
+//analytics
+router.post("/power-statistics", analyticsController.calculatePower);
 
 export default router;
