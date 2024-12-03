@@ -49,7 +49,7 @@ export default new class AnalyticsService {
                 });
             }
     
-            departmentPowerMap.get(departmentId).power += totalPowerUsage;
+            departmentPowerMap.get(departmentId).power += parseFloat(totalPowerUsage.toFixed(2));
         }
     
         return Array.from(departmentPowerMap.values());

@@ -8,11 +8,11 @@ interface LocalParams {
 export default function PowerCard({data}: LocalParams) {
     return <div className={cardStyle}>
         <div>
-            <label>відділ:</label>
+            <label className="text-xs text-gray-600 font-bold">відділ:</label>
             <div>{data.departament.name}</div>
         </div>
         <div>
-            <label>споживання:</label>
+            <label className="text-xs text-gray-600 font-bold">споживання:</label>
             <div>{`${data.power} кВт*год`}</div>
         </div>
     </div>
