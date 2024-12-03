@@ -15,6 +15,7 @@ import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
 import DropForm from "../forms/drop-form";
 import TYPE_OPTIONS from "../hardware/type-options";
 import { useParams } from "react-router-dom";
+import CategoryAndTypeSelector from "../hardware/category-type-selector";
 
 function HardwareRequestPage() {
     const hardwareId = useParams();
@@ -36,13 +37,6 @@ function HardwareRequestPage() {
 
     const [formData, setFormData] = useState<hardwareRequestCredentials>(defaultData);
     const [typeOptions, setTypeOptions] = useState<{value: string, label: string}[]>(formData.category ? TYPE_OPTIONS[formData.category as keyof object] : []);
-
-    const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        const newValue = event.target.value;
-        const newOptions = TYPE_OPTIONS[newValue as keyof object];
-        setTypeOptions([...newOptions]);
-        setFormData({...formData, category: newValue, type: newOptions[0]});
-    }
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
@@ -100,21 +94,16 @@ function HardwareRequestPage() {
         setFormData({...formData, rent: newValue});
     }
 
+    const onCategoryChange = (newType: string) => {
+        setFormData({...formData, type: newType});
+    }
+
     return <div className={staticFormContainerStyle}>
         <form id="form" onSubmit={handleSubmit} className={staticFormStyle}>
             <div className="flex justify-center text-2xl py-3">
                 створення запиту на обладнання
             </div>
-            <div className="flex w-full gap-2 px-10">
-                <select className={selectStyle + " w-full"} name="category" onChange={handleCategoryChange}>
-                    <OptionsMapper options={Categories} />
-                </select>
-            </div>
-            <div className="flex w-full gap-2 px-10">
-                <select className={selectStyle + " w-full"} name="type" onChange={handleChange}>
-                    <OptionsMapper options={typeOptions}/>
-                </select>
-            </div>
+            <CategoryAndTypeSelector handleChange={handleChange} onCategoryChange={onCategoryChange} defaultCategory={formData.category} defaultType={formData.type}/>
             <div className="flex w-full gap-2 px-10">
                 <input placeholder="модель" className={inputStyle + " w-full"} type="text" onChange={handleChange} name="model"/>
             </div>
