@@ -20,6 +20,7 @@ export default new class SoftwareService {
           },
           {
             $project: {
+              name: 1,
                 type: 1,
                 expirationDate: 1,
                 description: 1,
@@ -38,13 +39,13 @@ export default new class SoftwareService {
 
     async getHardwareSoftware(hardwareId: string): Promise<SoftwareResponse[]> {
         const convertedId = new mongoose.Types.ObjectId(hardwareId);
-        return await softwareModel.find([
+        return await softwareModel.aggregate([
             {
                 $match: {
                     hardware: convertedId
-                },
-                ...this.mainAggregation
-            }
+                }     
+            },
+            ...this.mainAggregation
         ]);
     }
 }

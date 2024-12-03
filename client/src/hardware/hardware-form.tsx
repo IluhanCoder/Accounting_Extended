@@ -22,6 +22,7 @@ import DepartamnetPicker from "../departament/departament-picker";
 import { horizontalSelectionPlateStyle } from "../styles/selector-styles";
 import UserPicker from "../user/user-picker";
 import CategoryAndTypeSelector from "./category-type-selector";
+import HardwareSoftwareMapper from "../software/hardware-software-mapper";
 
 interface LocalParams {
     onSubmit: (formData: HardwareFormData) => Promise<void>,
@@ -257,6 +258,10 @@ function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, sho
                 <div className="flex justify-center w-full p-2">
                     {edit && <UserPicker defaultValue={formData.admin} className={horizontalSelectionPlateStyle} closeAfterSubmit label="відповідальний адміністратор" role="admin" onChange={handleAdminPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">відповідальний адміністратор</label>}
                 </div>
+                {formData._id && <div className="flex flex-col gap-2">
+                    <label className="font-bold text-gray-600 text-xl">програмне забезпечення:</label>
+                    <HardwareSoftwareMapper hardwareId={formData._id}/>
+                </div>}
                 <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xl">обслуговування</label>
                     {edit && <ServicePusher pushHandler={handleServicePush}/>}
