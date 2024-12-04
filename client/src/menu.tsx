@@ -46,9 +46,21 @@ const Menu = () => {
                     </Link>
                 </div>
                 <div>
+                    <Link to="/retired" className='flex gap-2'>
+                        <MdChecklist className='mt-1'/>
+                        <div>рекомендації</div>
+                    </Link>
+                </div>
+                <div>
                     <Link to="/software" className='flex gap-2'>
                         <MdDownload className='mt-1'/>
                         <div>програмне забезпечення</div>
+                    </Link>
+                </div>
+                <div>
+                    <Link to="/sell" className='flex gap-2'>
+                        <MdOutlineSell className='mt-1'/>
+                        <div>продане обладнання</div>
                     </Link>
                 </div>
                 <div>
@@ -97,12 +109,6 @@ const Menu = () => {
                     <Link to="/admin-requests" className='flex gap-2'>
                         <IoMdGitPullRequest className="mt-1" />
                         <div>запити до вас</div>
-                    </Link>
-                </div>
-                <div>
-                    <Link to="/retired" className='flex gap-2'>
-                        <MdChecklist className='mt-1'/>
-                        <div>рекомендації</div>
                     </Link>
                 </div>
                 <div>
