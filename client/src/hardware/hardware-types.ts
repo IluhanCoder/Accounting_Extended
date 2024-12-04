@@ -10,9 +10,11 @@ export const Categories = [
 ]
 
 export default interface Hardware {
+    _id?: string,
     category: string,
     type: string,
     serial: string,
+    price: number,
     model: string,
     power: number,
     year: number,
@@ -44,6 +46,7 @@ export interface HardwareResponse {
     model: string,
     power: number,
     year: number,
+    price: number,
     exp_start: Date,
     chars: string,
     departament: DepartamentResponse,
@@ -66,6 +69,7 @@ export interface HardwareFormData {
     type: string,
     serial: string,
     model: string,
+    price: number,
     power: number,
     year: number,
     exp_start: Date,
@@ -81,6 +85,7 @@ export interface HardwareFormData {
 }
 
 export interface SelledHardwareResponse {
+    _id: string 
     hardware: Hardware,
     date: Date,
     comment: string

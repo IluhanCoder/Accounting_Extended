@@ -61,6 +61,7 @@ router.put("/modification-request/:id", requestController.deleteModificationRequ
 
 //analytics
 router.post("/power-statistics", analyticsController.calculatePower);
+router.post("/statistics", analyticsController.getStatistics);
 
 //software
 router.post("/software", softwareController.createNewSoftware);

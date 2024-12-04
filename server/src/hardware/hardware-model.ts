@@ -10,6 +10,7 @@ const hardwareSchema = new mongoose.Schema({
     chars: String,
     power: Number,
     departament: mongoose.Types.ObjectId,
+    price: Number,
     user: mongoose.Types.ObjectId || undefined,
     service: [{
         date: Date,
@@ -41,3 +42,10 @@ const selledSchema = new mongoose.Schema({
 })
 
 export const selledModel = mongoose.model("SelledHardware", selledSchema);
+
+const updateLogSchema = new mongoose.Schema({
+    hardwareId: mongoose.Types.ObjectId,
+    date: Date
+});
+
+export const updateLogModel = mongoose.model("UpdateLog", updateLogSchema);

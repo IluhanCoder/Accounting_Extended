@@ -113,6 +113,11 @@ function HardwareRequestPage() {
             <div className="flex w-full px-10">
                 <input placeholder="мета застосування" className={inputStyle + " w-full"} type="text" onChange={handleChange} name="purpose"/>
             </div>
+            <div className="flex gap-2 px-10 justify-center">
+                <label className="font-bold text-gray-600 mt-1">ціна:</label>
+                <input className={inputStyle} type="number" name="price" onChange={handleChange}/>
+                <div className="mt-1">$</div>
+            </div>
             <div className="px-10">
                 <div className="flex flex-col gap-2">
                     <select className={selectStyle + " w-full"} onChange={handleChange} name="crit">

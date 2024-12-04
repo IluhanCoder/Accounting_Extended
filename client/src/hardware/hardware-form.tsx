@@ -58,6 +58,7 @@ function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, sho
         type: TYPE_OPTIONS["comp"][0].value,
         serial: "",
         power: 0,
+        price: 0,
         model: "",
         year: 2024,
         exp_start: new Date(),
@@ -226,6 +227,11 @@ function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, sho
                     {showRequestButtons && <div className="flex justify-center py-2">
                         <button type="button" className={grayButtonStyle + " text-xs"} onClick={handleCreateModificationRequest}>створити заявку на модифікацію</button>
                     </div>}
+                </div>
+                <div className="flex gap-2 px-10 justify-center">
+                    <label className="font-bold text-gray-600 mt-1">ціна:</label>
+                    <input className={inputStyle} defaultValue={formData.price} type="number" name="price" onChange={handleChange}/>
+                    <div className="mt-1">$</div>
                 </div>
                 <div className="flex flex-col gap-2">
                     <label className="font-bold text-gray-600 text-xs">споживання кВт</label>

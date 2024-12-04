@@ -32,6 +32,7 @@ import formStore from './forms/form-store';
 import PowerPage from './analytics/power-page';
 import NewSoftwarePage from './software/new-software-page';
 import SoftwarePage from './software/software-page';
+import StatisticsPage from './analytics/statistics-page';
 registerLocale('ua', uk)
 
 function App() {
@@ -73,6 +74,7 @@ function App() {
                 <Route path='/power' element={<AuthGates><PowerPage/></AuthGates>}/>
                 <Route path='/new-software' element={<AuthGates roles={["admin", "main"]}><NewSoftwarePage/></AuthGates>}/>
                 <Route path='/software' element={<AuthGates roles={["admin", "main"]}><SoftwarePage/></AuthGates>}/>
+                <Route path='/statistics' element={<AuthGates><StatisticsPage/></AuthGates>}/>
               </Routes>
             </div>
           </div>

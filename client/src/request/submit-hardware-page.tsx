@@ -40,6 +40,7 @@ function SubmitHardwarePage () {
                 category: request.category,
                 type: TYPE_OPTIONS["comp"][0].value,
                 serial: "",
+                price: 0,
                 model: (request?.model) ? request?.model : "",
                 year: 2024,
                 power: 0,

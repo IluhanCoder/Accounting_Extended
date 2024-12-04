@@ -2,7 +2,10 @@ import userStore from "./user/user-store";
 import { Link } from "react-router-dom";
 import { ImSearch, ImUsers, ImNewTab, ImOffice, ImPlus, ImDisplay, ImHammer, ImRocket, ImCart, ImDownload, ImFileText2, ImStatsBars } from "react-icons/im";
 import authService from "./auth/auth-service";
+import { IoMdGitPullRequest } from "react-icons/io";
+import { FaComputer } from "react-icons/fa6";
 import { observer } from "mobx-react";
+import { MdChecklist, MdDownload, MdElectricalServices, MdGroup, MdOutlineSearch, MdOutlineSell } from "react-icons/md";
 
 const Menu = () => {
     const userIsMain: boolean = userStore.isMain();
@@ -14,7 +17,7 @@ const Menu = () => {
             {userIsMain && <>
                 <div>
                     <Link to="/search" className='flex gap-2'>
-                        <ImSearch className='mt-1'/>
+                        <MdOutlineSearch className='mt-1'/>
                         <div>пошук обладнання</div>
                     </Link>
                 </div> 
@@ -32,7 +35,7 @@ const Menu = () => {
                 </div>
                 <div>
                     <Link to="/new-departament" className='flex gap-2'>
-                        <ImOffice className='mt-1'/>
+                        <MdGroup className='mt-1'/>
                         <div>новий відділ</div>
                     </Link>
                 </div>
@@ -42,6 +45,18 @@ const Menu = () => {
                         <div>нове обладнання</div>
                     </Link>
                 </div>
+                <div>
+                    <Link to="/software" className='flex gap-2'>
+                        <MdDownload className='mt-1'/>
+                        <div>програмне забезпечення</div>
+                    </Link>
+                </div>
+                <div>
+                    <Link to="/power" className='flex gap-2'>
+                        <MdElectricalServices className='mt-1'/>
+                        <div>споживання</div>
+                    </Link>
+                </div>
                 </>
             }
             {userIsJustUser && <>
@@ -49,18 +64,6 @@ const Menu = () => {
                     <Link to="/personal-hardware" className='flex gap-2'>
                         <ImDisplay className='mt-1'/>
                         <div>персональне обладнання</div>
-                    </Link>
-                </div>
-                <div>
-                    <Link to="/new-service-request" className='flex gap-2'>
-                        <ImHammer className='mt-1'/>
-                        <div>запит на обслуговування</div>
-                    </Link>
-                </div>
-                <div>
-                    <Link to="/new-modification-request" className='flex gap-2'>
-                        <ImRocket className='mt-1'/>
-                        <div>запит на модифікацію</div>
                     </Link>
                 </div>
                 </>
@@ -80,26 +83,38 @@ const Menu = () => {
                 </div>
                 <div>
                     <Link to="/admin-requests" className='flex gap-2'>
-                        <ImDownload className='mt-1'/>
+                        <IoMdGitPullRequest className="mt-1" />
                         <div>запити до вас</div>
                     </Link>
                 </div>
                 <div>
                     <Link to="/retired" className='flex gap-2'>
-                        <ImFileText2 className='mt-1'/>
+                        <MdChecklist className='mt-1'/>
                         <div>рекомендації</div>
                     </Link>
                 </div>
                 <div>
                     <Link to="/sell" className='flex gap-2'>
-                        <ImStatsBars className='mt-1'/>
+                        <MdOutlineSell className='mt-1'/>
                         <div>продане обладнання</div>
                     </Link>
                 </div>
                 <div>
                     <Link to="/new-departament" className='flex gap-2'>
-                        <ImOffice className='mt-1'/>
+                        <MdGroup className='mt-1'/>
                         <div>новий відділ</div>
+                    </Link>
+                </div>
+                <div>
+                    <Link to="/software" className='flex gap-2'>
+                        <MdDownload className='mt-1'/>
+                        <div>програмне забезпечення</div>
+                    </Link>
+                </div>
+                <div>
+                    <Link to="/power" className='flex gap-2'>
+                        <MdElectricalServices className='mt-1'/>
+                        <div>споживання</div>
                     </Link>
                 </div>
                 </>

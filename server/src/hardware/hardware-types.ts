@@ -4,8 +4,10 @@ import { DepartamentResponse } from "../departament/departament-types"
 import { UserResponse } from "../user/user-type"
 
 export default interface Hardware {
+    _id: string,
     category: string,
     type: string,
+    price: number,
     serial: string,
     model: string,
     year: string,
@@ -33,6 +35,7 @@ export interface HardwareResponse {
     type: string,
     serial: string,
     model: string,
+    price: number,
     year: number,
     exp_start: Date,
     chars: string,

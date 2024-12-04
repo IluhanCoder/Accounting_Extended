@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import hardwareModel, { selledModel } from "./hardware-model";
+import hardwareModel, { selledModel, updateLogModel } from "./hardware-model";
 import Hardware, { HardwareResponse, IpHardware } from "./hardware-types";
 import instructionModel from "./instruction-model";
 import { modificationRequestModel, serviceRequestModel } from "../request/request-models";
@@ -72,6 +72,7 @@ const lookupQuery = [
       serial: 1,
       model: 1,
       year: 1,
+      price: 1,
       exp_start: 1,
       chars: 1,
       power: 1,
@@ -132,6 +133,7 @@ export default new class HardwareService {
 
     async editHardware (id: string, handwareData: Hardware | IpHardware) {
         await hardwareModel.findByIdAndUpdate(id, handwareData);
+        await updateLogModel.create({hardwareId: new mongoose.Types.ObjectId(id), date: new Date()});
     }
 
     async uploadInstruction(hardwareId: string, filePath: string) {
