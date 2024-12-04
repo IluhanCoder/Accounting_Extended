@@ -62,8 +62,8 @@ function SearchPage({isPersonal}: {isPersonal?: boolean}) {
 
     const generatePdf = async () => {
         const page = document.getElementById("results");
-        const buttons = page?.querySelectorAll("button");
-        buttons?.forEach((button: HTMLButtonElement) => {
+        const buttons = page?.querySelectorAll("#button");
+        buttons?.forEach((button) => {
             button.remove()
         })
         await html2PDF(page!, {
