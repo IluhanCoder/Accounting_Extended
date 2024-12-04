@@ -13,7 +13,7 @@ export default function PowerCard({data}: LocalParams) {
         </div>
         <div>
             <label className="text-xs text-gray-600 font-bold">споживання:</label>
-            <div>{`${data.power} кВт*год`}</div>
+            <div>{`${data.power.toFixed(2)} кВт*год`}</div>
         </div>
     </div>
 }

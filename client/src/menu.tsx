@@ -1,11 +1,11 @@
 import userStore from "./user/user-store";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ImSearch, ImUsers, ImNewTab, ImOffice, ImPlus, ImDisplay, ImHammer, ImRocket, ImCart, ImDownload, ImFileText2, ImStatsBars } from "react-icons/im";
 import authService from "./auth/auth-service";
 import { IoMdGitPullRequest } from "react-icons/io";
 import { FaComputer } from "react-icons/fa6";
 import { observer } from "mobx-react";
-import { MdChecklist, MdDownload, MdElectricalServices, MdGroup, MdOutlineSearch, MdOutlineSell } from "react-icons/md";
+import { MdChecklist, MdDownload, MdElectricalServices, MdGraphicEq, MdGroup, MdOutlineSearch, MdOutlineSell } from "react-icons/md";
 
 const Menu = () => {
     const userIsMain: boolean = userStore.isMain();
@@ -57,6 +57,12 @@ const Menu = () => {
                         <div>споживання</div>
                     </Link>
                 </div>
+                <div>
+                    <Link to="/statistics" className='flex gap-2'>
+                        <MdGraphicEq className='mt-1'/>
+                        <div>статистика</div>
+                    </Link>
+                </div>
                 </>
             }
             {userIsJustUser && <>
@@ -64,6 +70,12 @@ const Menu = () => {
                     <Link to="/personal-hardware" className='flex gap-2'>
                         <ImDisplay className='mt-1'/>
                         <div>персональне обладнання</div>
+                    </Link>
+                </div>
+                <div>
+                    <Link to="/new-hardware-request" className='flex gap-2'>
+                        <ImCart className='mt-1'/>
+                        <div>запит на обладнання</div>
                     </Link>
                 </div>
                 </>
@@ -117,13 +129,19 @@ const Menu = () => {
                         <div>споживання</div>
                     </Link>
                 </div>
+                <div>
+                    <Link to="/statistics" className='flex gap-2'>
+                        <MdGraphicEq className='mt-1'/>
+                        <div>статистика</div>
+                    </Link>
+                </div>
                 </>
             }  
     </div>
     <div>
         <button className='underline' type='button' onClick={async () => { await authService.logout(); window.open("/") }}>вийти</button>
     </div>
-        </div>
+    </div>
 }
 
 export default observer(Menu);

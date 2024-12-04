@@ -20,16 +20,12 @@ export default new class AuthService {
     }
 
     async login(credentials: LoginCredentials) {
-        try {
             const user = await UserModel.findOne({ nickname: credentials.nickname });
             if(!user) throw AuthError.UserNotFound();
             const validPassword = await bcrypt.compare(credentials.password, user.password);
             if (!validPassword) throw AuthError.WrongPassword();
             const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
             return token;
-        } catch (error) {
-            console.log(error);
-        }
     }   
 
     async verifyToken(token: string) {

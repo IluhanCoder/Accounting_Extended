@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RegistrationPage from './auth/registration-page';
@@ -52,7 +52,7 @@ function App() {
         <FormCloserProvider>
         <ToastContainer/>
           <div className='flex w-full'>
-            <Menu/>
+            {userStore.user && <Menu/>}
             <div className='grow overflow-auto'>
               <Routes>
                 <Route path='/' element={<LoginPage/>}></Route>

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { submitButtonStyle } from "../styles/button-syles";
-import { inputStyle, linkStyle } from "../styles/form-styles";
+import { inputStyle, linkStyle, staticFormStyle } from "../styles/form-styles";
 import { LoginCredentials } from "./registration-types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
@@ -40,7 +40,7 @@ function LoginPage() {
     }
 
     return <div className="flex justify-center pt-24">
-        <form className="flex flex-col gap-2 border p-4 rounded" onSubmit={handleSubmit}>
+        <form className={staticFormStyle} onSubmit={handleSubmit}>
             <div>
                 <label>вхід в систему</label>
             </div>

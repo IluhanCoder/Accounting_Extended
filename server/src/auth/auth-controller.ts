@@ -42,7 +42,6 @@ export default new class AuthController {
                 res.status(error.status ?? 500).json({
                     status: "internal server error"
                 })
-                console.log(error);
             }
         }
     }

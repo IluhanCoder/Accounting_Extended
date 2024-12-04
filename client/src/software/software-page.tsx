@@ -7,8 +7,9 @@ import softwareIsExpired from "./software-is-expired";
 import DateFormater from "../misc/date-formatter";
 import stringHelper from "../misc/string-helper";
 import softwareService from "./software-service";
-import { redButtonSyle } from "../styles/button-syles";
+import { redButtonSyle, submitButtonStyle } from "../styles/button-syles";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 export default function SoftwarePage() {
     const [data, setData] = useState<SoftwareResponse[]>();
@@ -52,6 +53,12 @@ export default function SoftwarePage() {
                                     {software.type}
                                 </div>
                             </div>
+                            {software.licenseId && <div className="flex flex-col gap-1">
+                                <label className="text-xs text-gray-600 font-bold">Номер:</label>
+                                <div>
+                                    {software.licenseId}
+                                </div>
+                            </div>}
                             <div className="flex flex-col gap-1">
                                 <label className="text-xs text-gray-600 font-bold">дата протермінування ліцензії:</label>
                                 <div>
@@ -62,9 +69,13 @@ export default function SoftwarePage() {
                                 <button type="button" onClick={() => handleDelete(software._id)} className={redButtonSyle}>видалити</button>
                             </div>
                         </div>)}
+                        
         </div>
-        </div> || <div className="flex justify-center w-full">
-            <div>програмне забезпечення відсутнє</div>
+        <div className="flex justify-center p-20"><Link className={submitButtonStyle} to="/new-software">додати</Link></div>
+        </div> || <div className="flex flex-col gap-6 justify-center w-full">
+            <div className="flex justify-center p-20">програмне забезпечення відсутнє</div>
+            <div className="flex justify-center p-20"><Link className={submitButtonStyle} to="/new-software">додати</Link></div>
         </div>
+
     else return <LoadingScreen/>
 }

@@ -45,7 +45,7 @@ function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, sho
 
     const validateData = (): boolean => {
         return !Object.entries(formData)
-        .some(([key, value]) => key !== 'modification' && (value === undefined || value === null));
+        .some(([key, value]) => key !== 'modification' && key !== "user" && (value === undefined || value === null));
     }
 
     const onCategoryChange = (newType: string) => {
@@ -258,7 +258,7 @@ function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, sho
                         {edit && <DepartamnetPicker defaultValue={formData.departament} className={horizontalSelectionPlateStyle} onChange={handleSelectorChange}/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">відділ</label>}
                     </div>
                     <div className="flex justify-center p-2">
-                        {edit && <UserPicker defaultValue={formData.user} className={horizontalSelectionPlateStyle} closeAfterSubmit label="користувач" onChange={handleUserPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">користувач</label>}
+                        {edit && <UserPicker defaultValue={formData.user} className={horizontalSelectionPlateStyle} closeAfterSubmit label="користувач (якщо є)" onChange={handleUserPick} self/> || <label className="font-bold text-gray-600 text-xl text-center mt-2">користувач</label>}
                     </div>
                 </div>
                 <div className="flex justify-center w-full p-2">

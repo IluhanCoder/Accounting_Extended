@@ -80,7 +80,7 @@ function SearchPage({isPersonal}: {isPersonal?: boolean}) {
         filter();
     }, [formData]);
 
-    if(hardware) return <div className="flex h-full flex-col">
+    if(hardware) return hardware.length > 0 && <div className="flex h-full flex-col">
         <SearchPanel onChange={handleChange}/>
         <div className="grow overflow-auto">
             <div className="flex flex-wrap p-4 gap-6" id="results">
@@ -92,7 +92,7 @@ function SearchPage({isPersonal}: {isPersonal?: boolean}) {
         <div className="flex justify-center p-6">
             <button className={lightButtonStyle} type="button" onClick={generatePdf}>Завантажити звіт</button>
         </div>
-    </div>
+    </div> || <div className="flex justify-center p-20">у вас відсутнє обладнання</div>
     else return <LoadingScreen/>
 }
 
