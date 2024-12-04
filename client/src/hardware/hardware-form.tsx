@@ -28,12 +28,13 @@ interface LocalParams {
     onSubmit: (formData: HardwareFormData) => Promise<void>,
     defaultData?: HardwareResponse | HardwareFormData,
     buttonLabel: string,
+    title?: string,
     showRecomendations?: boolean,
     showRequestButtons?: boolean,
     showDeleteButton?: boolean
 }
 
-function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, showRecomendations, showRequestButtons}: LocalParams) {
+function HardwareForm({onSubmit, title, showDeleteButton, defaultData, buttonLabel, showRecomendations, showRequestButtons}: LocalParams) {
     const edit = userStore.user?.edit && defaultData?.user?._id === userStore.user._id || userStore.user?.role === "admin" || userStore.user?.role === "main";
     const deepEdit = userStore.user?.role === "main" || userStore.user?._id === defaultData?.admin?._id;
 
@@ -203,7 +204,7 @@ function HardwareForm({onSubmit, showDeleteButton, defaultData, buttonLabel, sho
     return <div className={staticFormContainerStyle}>
         <form className={staticFormStyle + " w-3/5 relative"} onSubmit={handleSubmit}>
                 <div className="flex justify-center">
-                    {edit ? <h1 className="text-2xl">редагування обладнання</h1> : <h1 className="text-2xl">додання обладнання</h1>}
+                    {edit ? <h1 className="text-2xl">створення обладнання</h1> : <h1 className="text-2xl">редагування обладнання</h1>}
                 </div>
                     {showDeleteButton && deepEdit && <div className="absolute right-0 top-0 p-4">
                         <button type="button" className={redButtonSyle} onClick={handleDelete}>видалити обладнання</button>
