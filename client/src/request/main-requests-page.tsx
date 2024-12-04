@@ -28,22 +28,6 @@ function MainRequestsPage() {
         getData();
     }
 
-    const generatePdf = async () => {
-        const page = document.getElementById("results");
-        const buttons = page?.querySelectorAll("button");
-        buttons?.forEach((button: HTMLButtonElement) => {
-            button.remove()
-        })
-        await html2PDF(page!, {
-            jsPDF: {
-              format: "a4",
-            },
-            imageType: "image/jpeg",
-            output: "./pdf/generate.pdf",
-          });
-        window.location.reload();
-      };
-
     useEffect(() => {
         getData();
     }, []);
@@ -96,9 +80,6 @@ function MainRequestsPage() {
                     </div>
                 </div>
             })}
-        </div>
-        <div className="flex justify-center p-2">
-                <button className={lightButtonStyle} type="button" onClick={generatePdf}>Завантажити звіт</button>
         </div>
     </div>
     else return <div className="w-full flex flex-col h-full justify-center">

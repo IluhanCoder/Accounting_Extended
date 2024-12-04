@@ -103,7 +103,7 @@ function HardwareRequestPage() {
             <div className="flex justify-center text-2xl py-3">
                 створення запиту на обладнання
             </div>
-            <CategoryAndTypeSelector handleChange={handleChange} onCategoryChange={onCategoryChange} defaultCategory={formData.category} defaultType={formData.type}/>
+            <CategoryAndTypeSelector edit handleChange={handleChange} onCategoryChange={onCategoryChange} defaultCategory={formData.category} defaultType={formData.type}/>
             <div className="flex w-full gap-2 px-10">
                 <input placeholder="модель" className={inputStyle + " w-full"} type="text" onChange={handleChange} name="model"/>
             </div>

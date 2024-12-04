@@ -35,7 +35,7 @@ function HardwareCard({ hardwareData }: LocalParams) {
             </div>}
         </div>
         <div className="flex justify-center">
-            <Link className={submitButtonStyle} to={`/edit-hardware/${hardwareData._id}`}>Деталі</Link>
+            <Link id="button" className={submitButtonStyle} to={`/edit-hardware/${hardwareData._id}`}>Деталі</Link>
         </div>
     </div>
 }

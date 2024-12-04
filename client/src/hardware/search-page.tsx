@@ -62,8 +62,8 @@ function SearchPage({isPersonal}: {isPersonal?: boolean}) {
 
     const generatePdf = async () => {
         const page = document.getElementById("results");
-        const buttons = page?.querySelectorAll("button");
-        buttons?.forEach((button: HTMLButtonElement) => {
+        const buttons = page?.querySelectorAll("#button");
+        buttons?.forEach((button) => {
             button.remove()
         })
         await html2PDF(page!, {
@@ -73,7 +73,6 @@ function SearchPage({isPersonal}: {isPersonal?: boolean}) {
             imageType: "image/jpeg",
             output: "./pdf/generate.pdf",
           });
-        window.location.reload();
       };
 
     useEffect(() => {

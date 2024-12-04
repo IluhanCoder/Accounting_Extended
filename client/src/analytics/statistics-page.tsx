@@ -38,7 +38,6 @@ export default function StatisticsPage() {
             imageType: "image/jpeg",
             output: "./pdf/generate.pdf",
           });
-        window.location.reload();
       };
 
     useEffect(() => { getData() }, [startDate, endDate]);
