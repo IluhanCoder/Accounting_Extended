@@ -13,4 +13,8 @@ export default new class SoftwareServce {
     async getHardwareSoftware(hardwareId: string): Promise<{status: string, software: SoftwareResponse[]}> {
         return (await $api.get(`/software/${hardwareId}`)).data;
     }
+
+    async deleteById(softwareId: string) {
+        return (await $api.delete(`/software/${softwareId}`)).data;
+    }
 }

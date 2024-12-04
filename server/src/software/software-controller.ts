@@ -50,4 +50,20 @@ export default new class SoftwareController {
             console.log(error);
         }
     }
+
+    async deleteById(req: Request, res: Response) {
+        try {
+            const {id} = req.params;
+            await softwareService.deleteById(id);
+            res.status(200).send({
+                status: "success"
+            })
+        } catch (error) {
+            res.json({
+                status: "fail",
+                message: "internal server error"
+            }).status(500)
+            console.log(error);
+        }
+    }
 }

@@ -10,6 +10,7 @@ export default interface SoftwareCredentials {
 }
 
 export interface SoftwareResponse {
+    _id: string,
     name: string,
     type: string,
     description: string,

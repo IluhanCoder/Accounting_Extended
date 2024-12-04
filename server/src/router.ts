@@ -66,5 +66,6 @@ router.post("/power-statistics", analyticsController.calculatePower);
 router.post("/software", softwareController.createNewSoftware);
 router.get("/software", softwareController.fetchSoftware);
 router.get("/software/:hardwareId", softwareController.getHardwareSoftware);
+router.delete("/software/:id", softwareController.deleteById);
 
 export default router;

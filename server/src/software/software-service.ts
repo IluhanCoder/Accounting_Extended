@@ -48,4 +48,8 @@ export default new class SoftwareService {
             ...this.mainAggregation
         ]);
     }
+
+    async deleteById(id: string) {
+      await softwareModel.findByIdAndDelete(id);
+    }
 }
